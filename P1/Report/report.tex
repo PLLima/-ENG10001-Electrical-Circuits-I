@@ -26,6 +26,7 @@
 \usepackage{soul}
 
 \usepackage[siunitx]{circuitikz}
+\sisetup{output-decimal-marker={,}}
 
 % Set section numbering from 1.1
 \renewcommand{\thesection}{\arabic{section}.1}
@@ -90,6 +91,11 @@ Primeiramente, com o meu número de matrícula \textbf{0 0 3 4 1 8 1 0}, observa
 \end{itemize}
 
 A partir deles, sabe-se que os circuito a serem analisados são os seguintes:
+
+\begin{itemize}
+  \item Circuito de Entrada:
+\end{itemize}
+
 \begin{figure}[h!]
     \centering
     \begin{circuitikz}
@@ -108,6 +114,33 @@ A partir deles, sabe-se que os circuito a serem analisados são os seguintes:
 
     ; \end{circuitikz}
     \caption{\label{ckt:input_1} Circuito de Entrada 2}
+\end{figure}
+
+\begin{itemize}
+  \item Primeira Topologia de Quadripolo:
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}
+        \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+              (0,2) node[]{$ \text{V}_1 $}
+              (0,4) node[ocirc=]{} node[below]{$ + $};
+        \draw (0.05,4) to[R, l_=20<\ohm>] (3,4)
+              [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+        \draw (3,4) to[american controlled voltage source, l=$ \num{1,2} \text{V}_2 $] (3,2);
+        \draw (3,2) -- (9,2);
+        \draw (7,4) to[american controlled current source, l=$ 10 \text{I}_1 $, -*] (7,2)
+              (7,4) -- (11,4);
+        \draw (9,4) to[R, l=100<\ohm>, *-] (9,2);
+        \draw [->, shorten >=1mm, shorten <=1mm] (11,4.3) -- (10,4.3) node[midway, above] {$ \text{I}_2 $};
+        \draw (5,2) to[R, l=20<\ohm>, *-*] (5,0)
+              (0.05,0) -- (11,0);
+        \draw (11,0) node[ocirc=]{} node[above]{$ - $}
+              (11,2) node[]{$ \text{V}_2 $}
+              (11,4) node[ocirc=]{} node[below]{$ + $};
+    \end{circuitikz}
+    \caption{\label{ckt:quad_1_1} Topologia de Quadripolo 2 (\texttt{Q1})}
 \end{figure}
 
 \section{Circuito Equivalente de Thevénin da Entrada}
@@ -130,7 +163,7 @@ A partir deles, sabe-se que os circuito a serem analisados são os seguintes:
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=.85\linewidth]{images/plots/violin_plots/pure_combination_mpg.png}
+  \includegraphics[width=.85\linewidth]{images/logos/UFRGS.png}
   \caption{\label{img:combination_dist} \textit{Violin Plot} de Consumo Médio}
 \end{figure}
 
