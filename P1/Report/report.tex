@@ -13,6 +13,7 @@
 \usepackage{indentfirst}
 \usepackage{setspace}
 \usepackage{amsmath}
+\usepackage{relsize}
 \usepackage{array}
 
 \usepackage{graphicx}
@@ -226,6 +227,159 @@ A partir deles, sabe-se que os circuito a serem analisados são os seguintes:
 \end{figure}
 
 \section{Circuito Equivalente de Thevénin da Entrada}
+
+Partindo do circuito de entrada sorteado, pode-se adotar a estratégia de transformação de fontes repetidas vezes até
+chegar-se no circuito equivalente de Thevénin:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (3,3) to[R, l=4<\ohm>] (0,3)
+    to[american voltage source, l=12<\volt>] (0,0)
+    to[R, l_=16<\ohm>] (3,0)
+    to[R, l_=10<\ohm>, *-*] (3,3)
+    to[R, l_=20<\ohm>] (6,3)
+    (3,0) to[R, l_=5<\ohm>] (6,0)
+    (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
+    (6,3) -- (8,3) (6,0) -- (8,0)
+    (8,3) to[R, l=5<\ohm>, *-*] (8,0)
+    (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
+    (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+  \[ \scalebox{3}{$ \equiv $} \]
+
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (3,3) to[R, l=20<\ohm>] (0,3)
+    to[american voltage source, l=12<\volt>] (0,0)
+    -- (3,0)
+    to[R, l_=10<\ohm>, *-*] (3,3)
+    to[R, l_=20<\ohm>] (6,3)
+    (3,0) to[R, l_=5<\ohm>] (6,0)
+    (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
+    (6,3) -- (8,3) (6,0) -- (8,0)
+    (8,3) to[R, l=5<\ohm>, *-*] (8,0)
+    (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
+    (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+\[ \scalebox{3}{$ \equiv $} \]
+
+\begin{circuitikz}[scale=0.8]
+  \draw
+  (0,3) -- (4,3)
+  (0,0) to[american current source, l_=$ \num{0,6}\text{A} $] (0,3)
+  (0,0) -- (4,0)
+  (2,3) to[R, l=20<\ohm>, *-*] (2,0)
+  (4,3) to[R, l=10<\ohm>, *-*] (4,0)
+  (4,3) to[R, l_=20<\ohm>] (7,3)
+  (4,0) to[R, l_=5<\ohm>] (7,0)
+  (7,0) to[american current source, l_=3<\ampere>, *-*] (7,3)
+  (7,3) -- (9,3) (7,0) -- (9,0)
+  (9,3) to[R, l=5<\ohm>, *-*] (9,0)
+  (9,3) -- (11,3) node[ocirc=](A){} node[right]{A}
+  (9,0) -- (11,0) node[ocirc](B){} node[right]{B}
+
+; \end{circuitikz}
+
+\[ \scalebox{3}{$ \equiv $} \]
+
+\begin{circuitikz}[scale=0.8]
+  \draw
+  (0,3) -- (3,3)
+  (0,0) to[american current source, l_=$ \num{0,6}\text{A} $] (0,3)
+  (0,0) -- (3,0)
+  (2,3) to[R, l=$ \frac{20}{3} \Omega $, *-*] (2,0)
+  (3,3) to[R, l_=20<\ohm>] (6,3)
+  (3,0) to[R, l_=5<\ohm>] (6,0)
+  (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
+  (6,3) -- (8,3) (6,0) -- (8,0)
+  (8,3) to[R, l=5<\ohm>, *-*] (8,0)
+  (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
+  (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
+
+; \end{circuitikz}
+
+\clearpage
+\[ \scalebox{3}{$ \equiv $} \]
+
+\begin{circuitikz}[scale=0.8]
+  \draw
+  (0,3) to[R, l_=$ \frac{20}{3} \Omega $] (3,3)
+  (0,3) to[american voltage source, l=4<\volt>] (0,0)
+  (0,0) -- (3,0)
+  (3,3) to[R, l_=20<\ohm>] (6,3)
+  (3,0) to[R, l_=5<\ohm>] (6,0)
+  (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
+  (6,3) -- (8,3) (6,0) -- (8,0)
+  (8,3) to[R, l=5<\ohm>, *-*] (8,0)
+  (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
+  (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
+
+; \end{circuitikz}
+
+\[ \scalebox{3}{$ \equiv $} \]
+
+\begin{circuitikz}[scale=0.8]
+  \draw
+  (0,3) to[R, l_=$ \frac{95}{3} \Omega $] (3,3)
+  (0,3) to[american voltage source, l=4<\volt>] (0,0)
+  (0,0) -- (3,0)
+  (3,0) to[american current source, l_=3<\ampere>, *-*] (3,3)
+  (3,3) -- (5,3) (3,0) -- (5,0)
+  (5,3) to[R, l=5<\ohm>, *-*] (5,0)
+  (5,3) -- (7,3) node[ocirc=](A){} node[right]{A}
+  (5,0) -- (7,0) node[ocirc](B){} node[right]{B}
+
+; \end{circuitikz}
+
+\[ \scalebox{3}{$ \equiv $} \]
+
+\begin{circuitikz}[scale=0.8]
+  \draw
+  (0,3) -- (4,3)
+  (0,0) to[american current source, l_=$ \frac{12}{95} \text{A} $] (0,3)
+  (2,3) to[R, l=$ \frac{95}{3} \Omega $, *-*] (2,0)
+  (0,0) -- (4,0)
+  (4,0) to[american current source, l_=3<\ampere>, *-*] (4,3)
+  (4,3) -- (6,3) (4,0) -- (6,0)
+  (6,3) to[R, l=5<\ohm>, *-*] (6,0)
+  (6,3) -- (8,3) node[ocirc=](A){} node[right]{A}
+  (6,0) -- (8,0) node[ocirc](B){} node[right]{B}
+
+; \end{circuitikz}
+
+\[ \scalebox{3}{$ \equiv $} \]
+
+\begin{circuitikz}[scale=0.8]
+  \draw
+  (0,0) to[american current source, l_=$ \frac{297}{95} \text{A} $] (0,3)
+  (2,3) to[R, l=$ \frac{95}{22} \Omega $, *-*] (2,0)
+  (0,3) -- (4,3) node[ocirc=](A){} node[right]{A}
+  (0,0) -- (4,0) node[ocirc](B){} node[right]{B}
+
+; \end{circuitikz}
+
+\[ \scalebox{3}{$ \equiv $} \]
+
+\begin{circuitikz}[scale=0.8]
+  \draw
+  (0,3) to[american voltage source, l=$ \frac{27}{2} \text{V} $] (0,0)
+  (0,3) to[R, l_=$ \frac{95}{22} \Omega $] (3,3)
+  (3,3) -- (4,3) node[ocirc=](A){} node[right]{A}
+  (0,0) -- (4,0) node[ocirc](B){} node[right]{B}
+
+; \end{circuitikz}
+
+\[ \scalebox{3}{$ * $} \]
+
+\end{center}
+
+Assim, com a sequência ilustrada acima, chegou-se ao circuito equivalente de Thevénin da entrada
+com $ V_{TH} = \frac{27}{2} \text{V} = 13,\!5 \text{V} $ e $ R_{TH} = \frac{95}{22} \Omega = 4,\!3\overline{18} \Omega $.
 
 \section{Análise da Associação de Quadripolos}
 
