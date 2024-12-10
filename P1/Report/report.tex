@@ -390,15 +390,25 @@ com $ V_{TH} = \frac{27}{2} \text{V} = 13,\!5 \text{V} $ e $ R_{TH} = \frac{95}{
 
 Dada a associação de quadripolos sorteada, é mais prudente representar ambos os quadripolos com os parâmetros $ a $, visto
 que o quadripolo equivalente apresenta parâmetros da seguinte forma:
-$$ a_{11} = a^{'}_{11}a^{''}_{11} + a^{'}_{12}a^{''}_{21} $$
-$$ a_{12} = a^{'}_{11}a^{''}_{12} + a^{'}_{12}a^{''}_{22} $$
-$$ a_{21} = a^{'}_{21}a^{''}_{11} + a^{'}_{22}a^{''}_{21} $$
-$$ a_{22} = a^{'}_{21}a^{''}_{12} + a^{'}_{22}a^{''}_{22} $$
+\begin{equation}
+  \label{eq:quad_cascade}
+  \centering
+  \begin{matrix}
+    a_{11} = a^{'}_{11}a^{''}_{11} + a^{'}_{12}a^{''}_{21} & \hspace{10pt} a_{12} = a^{'}_{11}a^{''}_{12} + a^{'}_{12}a^{''}_{22} \\\\
+    a_{21} = a^{'}_{21}a^{''}_{11} + a^{'}_{22}a^{''}_{21} & \hspace{10pt} a_{22} = a^{'}_{21}a^{''}_{12} + a^{'}_{22}a^{''}_{22}
+  \end{matrix}
+\end{equation}
 
 Onde o primeiro quadripolo (\texttt{Q2}) da figura \ref{ckt:quad_assoc} tem os parâmetros $ a^{'} $ e o segundo quadripolo (\texttt{Q1}) tem os parâmetros $ a^{''} $.
 Além disso, os parâmetros $ a $ representam as variáveis dos quadripolos da seguinte maneira:
-$$ V_1 = a_{11}V_2 - a_{12}I_2 $$
-$$ I_1 = a_{21}V_2 - a_{22}I_2 $$
+\begin{equation}
+  \label{eq:quad_params_a}
+  \centering
+  \begin{matrix}
+    V_1 = a_{11}V_2 - a_{12}I_2 \\
+    I_1 = a_{21}V_2 - a_{22}I_2
+  \end{matrix}
+\end{equation}
 
 \subsection{Parâmetros do Quadripolo \texttt{Q2}}
 
