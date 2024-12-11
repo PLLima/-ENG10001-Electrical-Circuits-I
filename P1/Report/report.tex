@@ -820,7 +820,22 @@ Concluindo, abaixo estão os parâmetros calculados para esse quadripolo:
 
 \subsection{União dos Quadripolos}
 
-Juntando os parâmetros $ a^{'} $ da equação \ref{eq:quad_params_a'}
+Juntando os parâmetros $ a^{'} $ da equação \ref{eq:quad_params_a'} e os parâmetros $ a^{''} $ da equação \ref{eq:quad_params_a''} na equação \ref{eq:quad_cascade} de
+associação em cascata:
+\begin{equation}
+  \label{eq:bad}
+  \centering
+  \begin{matrix}
+    a_{11} = a^{'}_{11}a^{''}_{11} + a^{'}_{12}a^{''}_{21} & \hspace{10pt} a_{12} = a^{'}_{11}a^{''}_{12} + a^{'}_{12}a^{''}_{22} \\\\
+    a_{21} = a^{'}_{21}a^{''}_{11} + a^{'}_{22}a^{''}_{21} & \hspace{10pt} a_{22} = a^{'}_{21}a^{''}_{12} + a^{'}_{22}a^{''}_{22}
+  \end{matrix}
+\end{equation}
+
+$$ a_{11} = a^{'}_{11}a^{''}_{11} + a^{'}_{12}a^{''}_{21} $$
+$$ \Rightarrow a_{11} = \left(- \frac{1000031007}{1999999500}\right) \cdot \left(\frac{284}{245}\right) + \left(- \frac{3020}{3999999} \Omega\right) \cdot \left(- \frac{1}{980}\text{S}\right) $$
+$$ \Rightarrow a_{11} = - \frac{284008805988}{489999877500} + \frac{3020}{3919999020} $$
+$$ \Rightarrow a_{11} = - \frac{1113314241144330131760}{1920799039600120050000} + \frac{1479799630050000}{1920799039600120050000} $$
+$$ \Rightarrow a_{11} = - \frac{111331276134470008176}{192079903960012005000} \approx -0,\!579 $$
 
 \section{Circuito Equivalente de Norton da Saída}
 
