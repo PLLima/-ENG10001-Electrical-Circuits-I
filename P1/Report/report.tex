@@ -658,7 +658,169 @@ Concluindo, abaixo estão os parâmetros calculados para esse quadripolo:
 
 \subsection{Parâmetros do Quadripolo \texttt{Q1}}
 
+Após calcular os parâmetros $ a^{'} $ do quadripolo \texttt{Q2} mostrados na equação \ref{eq:quad_params_a'}, calcular-se-á os parâmetros $ a^{''} $ do quadripolo
+\texttt{Q1}:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+          (0,2) node[]{$ \text{V}_1 $}
+          (0,4) node[ocirc=]{} node[below]{$ + $};
+    \draw (0.06,4) to[R, l_=20<\ohm>] (3,4)
+          [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+    \draw (3,4) to[american controlled voltage source, l=$ \num{1,2} \text{V}_2 $] (3,2);
+    \draw (3,2) -- (9,2);
+    \draw (7,4) to[american controlled current source, l=$ 10 \text{I}_1 $, -*] (7,2)
+          (7,4) -- (11,4);
+    \draw (9,4) to[R, l=100<\ohm>, *-] (9,2);
+    \draw [->, shorten >=1mm, shorten <=1mm] (11,4.3) -- (10,4.3) node[midway, above] {$ \text{I}_2 $};
+    \draw (5,2) to[R, l=20<\ohm>, *-*] (5,0)
+          (0.06,0) -- (11,0);
+    \draw (11,0) node[ocirc=]{} node[above]{$ - $}
+          (11,2) node[]{$ \text{V}_2 $}
+          (11,4) node[ocirc=]{} node[below]{$ + $};
+  \end{circuitikz}
+\end{center}
+
+\subsubsection{Parâmetros $ a^{''}_{11} $ e $ a^{''}_{21} $}
+
+Através da equação \ref{eq:quad_params_a}, zerar-se-á o valor de $ I_2 $ para calcular os dois primeiros parâmetros $ a^{''} $, colocando
+$ V_1 $ e $ I_1 $ em função da variável de entrada $ V_2 $:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+          (0,2) node[]{$ \text{V}_1 $}
+          (0,4) node[ocirc=]{} node[below]{$ + $};
+    \draw (0.06,4) to[R, l_=20<\ohm>] (3,4)
+          [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+    \draw (3,4) to[american controlled voltage source, l=$ \num{1,2} \text{V}_2 $] (3,2);
+    \draw (3,2) -- (8,2);
+    \draw (6,4) to[american controlled current source, l=$ 10 \text{I}_1 $, -*] (6,2)
+          (6,4) -- (11,4);
+    \draw (8,4) to[R, l=100<\ohm>, *-] (8,2)
+          [->, shorten >=1mm, shorten <=1mm] (6.5,1.7) -- (7.5,1.7) node[midway, below] {$ 10 \text{I}_1 $};
+    \draw (5,2) to[R, l=20<\ohm>, *-*] (5,0)
+          (0.06,0) -- (9,0);
+    \draw [->, shorten >=1mm, shorten <=1mm] (4.5,1.5) -- (4.5,0.5) node[midway, left] {$ \text{I}_1 $};
+    \draw (9,0) node[ocirc=]{} node[above]{$ - $}
+          (10,2) node[]{$ \text{V}_2 $}
+          (11,4) node[ocirc=]{} node[below]{$ + $};
+  \end{circuitikz}
+\end{center}
+
+Pelo desenho acima, é perceptível que, pela malha direita:
+$$ - V_2 - 10 \cdot I_1 \cdot 100\Omega + I_1 \cdot 20\Omega = 0 $$
+$$ \Rightarrow - 1000\Omega \cdot I_1 + 20\Omega \cdot I_1 = V_2 $$
+$$ \Rightarrow - 980\Omega \cdot I_1 = V_2 $$
+$$ \Rightarrow I_1 = - \frac{1}{980}\text{S} \cdot V_2 $$
+$$ \Rightarrow a^{''}_{21} = - \frac{1}{980}\text{S} \approx - 0,\!001\text{S} = - 1\text{mS} $$
+
+Fazendo a malha do lado esquerdo:
+$$ - V_1 + I_1 \cdot 20\Omega + 1,2 \cdot V_2 + I_1 \cdot 20\Omega = 0 $$
+$$ \Rightarrow V_1 = 40\Omega \cdot I_1 + 1,2 \cdot V_2 $$
+$$ \Rightarrow V_1 = 40\Omega \cdot \left( - \frac{1}{980\Omega} V_2 \right) + 1,2 \cdot V_2 $$
+$$ \Rightarrow V_1 = - \frac{2}{49} V_2 + 1,2 \cdot V_2 $$
+$$ \Rightarrow V_1 = - \frac{10}{245} V_2 + \frac{294}{245} V_2 $$
+$$ \Rightarrow V_1 = \frac{284}{245} V_2 $$
+$$ \Rightarrow a^{''}_{11} = \frac{284}{245} \approx 1,\!159 $$
+
+\subsubsection{Parâmetros $ a^{''}_{12} $ e $ a^{''}_{22} $}
+
+Através da equação \ref{eq:quad_params_a}, zerar-se-á o valor de $ V_2 $ para calcular os dois últimos parâmetros $ a^{''} $, colocando
+$ V_1 $ e $ I_1 $ em função da variável de entrada $ I_2 $:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+          (0,2) node[]{$ \text{V}_1 $}
+          (0,4) node[ocirc=]{} node[below]{$ + $};
+    \draw (0.06,4) to[R, l_=20<\ohm>] (3,4)
+          [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+    \draw (3,4) to[american controlled voltage source, l=$ \num{1,2} \text{V}_2 $] (3,2);
+    \draw (3,2) -- (9,2);
+    \draw (7,4) to[american controlled current source, l=$ 10 \text{I}_1 $, -*] (7,2)
+          (7,4) -- (11,4);
+    \draw (9,4) to[R, l=100<\ohm>, *-] (9,2);
+    \draw [->, shorten >=1mm, shorten <=1mm] (10.5,4.3) -- (9.5,4.3) node[midway, above] {$ \text{I}_2 $};
+    \draw [->, shorten >=1mm, shorten <=1mm] (6.5,2.3) -- (5.5,2.3) node[midway, above] {$ \text{I}_2 $};
+    \draw (5,2) node[above]{$ \text{V}_\text{A} $}
+          (5,2) to[R, l=20<\ohm>, *-*] (5,0)
+          (5,0) node[ground]{}
+          (0.06,0) -- (11,0);
+    \draw [->, shorten >=1mm, shorten <=1mm] (4.5,1.5) -- (4.5,0.5) node[midway, left] {$ \text{I}_3 $};
+    \draw (11,0) -- (11,4);
+  \end{circuitikz}
+\end{center}
+
+Pela figura acima, é perceptível que o resistor de $ 20\Omega $ abaixo está em paralelo com o lado direito do circuito. Por conta disso
+descobrir-se-á a tensão sobre ele através de análise nodal. No lado direito do nó com potencial $ V_A $, observa-se, decorrente do fato dos
+componentes em paralelo, que a corrente $ I_2 $ flui por ali no sentido da figura:
+$$ I_1 = \frac{V_1 - 1,\!2 \cdot V_2 - V_A}{20\Omega} = \frac{V_1 - V_A}{20\Omega} $$
+$$ I_3 = \frac{V_A}{20\Omega} $$
+
+Agora, equacionando o nó $ V_A $:
+$$ I_1 + I_2 = I_3 $$
+$$ \Rightarrow \frac{V_1 - V_A}{20\Omega} + I_2 = \frac{V_A}{20\Omega} $$
+$$ \Rightarrow \frac{V_1 - V_A}{20\Omega} + \frac{20\Omega}{20\Omega}I_2 = \frac{V_A}{20\Omega} $$
+\begin{equation}
+  \label{eq:a''12_a''22_I}
+  \centering
+  \Rightarrow V_1 = 2V_A - 20\Omega \cdot I_2 \tag{I}
+\end{equation}
+
+Então, analisando o paralelo na direita, onde determinou-se que há uma tensão comum de $ V_A $, encontrar-se-á uma relação entre $ V_A $ e $ I_2 $:
+$$ I_2 = 10 \cdot I_1 - \frac{V_A}{100\Omega} $$
+$$ I_1 = I_3 - I_2 $$
+$$ \Rightarrow I_1 = \frac{V_A}{20\Omega} - I_2 $$
+$$ \Rightarrow I_2 = 10 \cdot \left( \frac{V_A}{20\Omega} - I_2 \right) - \frac{V_A}{100\Omega} $$
+$$ \Rightarrow \frac{100\Omega}{100\Omega}I_2 = \frac{50}{100\Omega}V_A - \frac{1000\Omega}{100\Omega}I_2 - \frac{1}{100\Omega}V_A $$
+$$ \Rightarrow 1100\Omega \cdot I_2 = 49V_A $$
+\begin{equation}
+  \label{eq:a''12_a''22_II}
+  \centering
+  \Rightarrow V_A = \frac{1100}{49}\Omega \cdot I_2 \tag{II}
+\end{equation}
+
+Utilizando a equação \ref{eq:a''12_a''22_II} na equação \ref{eq:a''12_a''22_I}:
+$$ V_1 = 2 \cdot \left( \frac{1100}{49}\Omega \cdot I_2 \right) - 20\Omega \cdot I_2 $$
+$$ \Rightarrow V_1 = \frac{2200}{49}\Omega \cdot I_2 - \frac{980}{49}\Omega \cdot I_2 $$
+$$ \Rightarrow V_1 = \frac{1220}{49}\Omega \cdot I_2 $$
+
+Cuidando o sinal da equação \ref{eq:quad_params_a}:
+$$ a^{''}_{12} = - \frac{1220}{49}\Omega \approx - 24,\!898\Omega $$
+
+Com a equação \ref{eq:a''12_a''22_II}, pode-se calcular $ I_1 $:
+$$ I_1 = \frac{V_A}{20\Omega} - I_2 $$
+$$ \Rightarrow I_1 = \frac{\frac{1100}{49}\Omega \cdot I_2}{20\Omega} - I_2 $$
+$$ \Rightarrow I_1 = \frac{1100}{980}I_2 - I_2 $$
+$$ \Rightarrow I_1 = \frac{1100}{980}I_2 - \frac{980}{980}I_2 $$
+$$ \Rightarrow I_1 = \frac{120}{980}I_2 $$
+$$ \Rightarrow I_1 = \frac{6}{49}I_2 $$
+
+Novamente cuidando do sinal na equação \ref{eq:quad_params_a}:
+$$ \Rightarrow a^{''}_{22} = - \frac{6}{49} \approx - 0,\!122 $$
+
+\subsubsection{Unindo os parâmetros $ a^{''} $ do quadripolo \texttt{Q1}}
+
+Concluindo, abaixo estão os parâmetros calculados para esse quadripolo:
+
+\begin{equation}
+  \label{eq:quad_params_a''}
+  \centering
+  \begin{matrix}
+    a^{''}_{11} = \frac{284}{245} & \hspace{10pt} a^{''}_{12} = - \frac{1220}{49} \Omega \\\\
+    a^{''}_{21} = - \frac{1}{980}\text{S} & \hspace{10pt} a^{''}_{22} = - \frac{6}{49}
+  \end{matrix}
+\end{equation}
+
+\begin{center}
+    \[ \scalebox{3}{$ * $} \]
+\end{center}
+
 \subsection{União dos Quadripolos}
+
+Juntando os parâmetros $ a^{'} $ da equação \ref{eq:quad_params_a'}
 
 \section{Circuito Equivalente de Norton da Saída}
 
