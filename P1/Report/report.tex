@@ -822,15 +822,6 @@ Concluindo, abaixo estão os parâmetros calculados para esse quadripolo:
 
 Juntando os parâmetros $ a^{'} $ da equação \ref{eq:quad_params_a'} e os parâmetros $ a^{''} $ da equação \ref{eq:quad_params_a''} na equação \ref{eq:quad_cascade} de
 associação em cascata:
-\begin{equation}
-  \label{eq:bad}
-  \centering
-  \begin{matrix}
-    a_{11} = a^{'}_{11}a^{''}_{11} + a^{'}_{12}a^{''}_{21} & \hspace{10pt} a_{12} = a^{'}_{11}a^{''}_{12} + a^{'}_{12}a^{''}_{22} \\\\
-    a_{21} = a^{'}_{21}a^{''}_{11} + a^{'}_{22}a^{''}_{21} & \hspace{10pt} a_{22} = a^{'}_{21}a^{''}_{12} + a^{'}_{22}a^{''}_{22}
-  \end{matrix}
-\end{equation}
-
 $$ a_{11} = a^{'}_{11}a^{''}_{11} + a^{'}_{12}a^{''}_{21} $$
 $$ \Rightarrow a_{11} = \left(- \frac{1000031007}{1999999500}\right) \cdot \left(\frac{284}{245}\right) + \left(- \frac{3020}{3999999} \Omega\right) \cdot \left(- \frac{1}{980}\text{S}\right) $$
 $$ \Rightarrow a_{11} = - \frac{284008805988}{489999877500} + \frac{3020}{3919999020} $$
@@ -854,6 +845,29 @@ $$ \Rightarrow a_{21} = \left(- \frac{1000041314}{2000061514000} \text{S}\right)
 $$ \Rightarrow a_{21} = \frac{1220050403080}{98003014186000} + \frac{612}{19599995100} $$
 $$ \Rightarrow a_{21} = \frac{23912981922121024908000}{1920858597830830488600000} + \frac{59977844681832000}{1920858597830830488600000} $$
 $$ \Rightarrow a_{21} = \frac{23913041899965706740000}{1920858597830830488600000} \approx 0,\!012 $$
+
+Sumarizando todos os resultados:
+\begin{equation}
+  \label{eq:params_a_calc}
+  \centering
+  \begin{matrix}
+    a_{11} = - \frac{1113312761344700081760}{1920799039600120050000} & \hspace{10pt} a_{12} = \frac{239129130371542461540}{19207990396001200500} \Omega \\\\
+    a_{21} = - \frac{111332521590304913892000}{192085859783083048860000000} \text{S} & \hspace{10pt} a_{22} = \frac{23913041899965706740000}{1920858597830830488600000}
+  \end{matrix}
+\end{equation}
+
+\begin{equation}
+  \label{eq:quad_params_a_calc}
+  \centering
+  \begin{matrix}
+    V_{1_{EQ}} = - \frac{1113312761344700081760}{1920799039600120050000} \cdot V_{2_{EQ}} - \frac{239129130371542461540}{19207990396001200500} \Omega \cdot I_{2_{EQ}} \\\\
+    I_{1_{EQ}} = - \frac{111332521590304913892000}{192085859783083048860000000} \text{S} \cdot V_{2_{EQ}} - \frac{23913041899965706740000}{1920858597830830488600000} \cdot I_{2_{EQ}}
+  \end{matrix}
+\end{equation}
+
+\begin{center}
+  \[ \scalebox{3}{$ * $} \]
+\end{center}
 
 \section{Circuito Equivalente de Norton da Saída}
 
