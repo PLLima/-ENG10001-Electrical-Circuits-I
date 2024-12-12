@@ -945,4 +945,50 @@ Ou seja, o circuito equivalente Norton da saída é o seguinte:
 
 \section{Ganho de Tensão da Saída \texorpdfstring{\texttt{V\textsubscript{2}/V\textsubscript{1}}}{V2/V1}}
 
+Partindo do circuito equivalente de Thevénin da entrada, dos parâmetros $ a $ da interconexão dos quadripolos e
+do circuito equivalente Norton da saída (que é puramente resistivo, sem fonte de corrente), obteve-se o seguinte
+circuito:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8, smallR/.style={R, bipoles/length=0.8cm}, smallV/.style={american voltage source, bipoles/length=1cm}]
+    \draw (0,1.575) to[smallV, l_=$ \frac{27}{2}\text{V} $] (0,0.425)
+          (0,1.575) to[smallR, l=$ \frac{95}{22}\Omega $] (2,1.575);
+    \draw (4,1) node[fourport, label={[anchor=center]:Q}](Q){}
+          (0,0.425) -- (Q.port1)
+          (2,1.575) -- (Q.port4)
+          (2,0.425) node[above]{$ - $}
+          (2,1) node[left]{$ \text{V}_{1_\text{EQ}} $}
+          (2,1.575) node[below]{$ + $}
+          [->, shorten >=1mm, shorten <=1mm] (2,1.875) -- (2.8,1.875) node[midway, above] {$ \text{I}_{1_\text{EQ}} $};
+    \draw (8,0.425) -- (Q.port2)
+          (8,1.575) -- (Q.port3)
+          (6,0.425) node[above]{$ - $}
+          (6,1) node[right]{$ \text{V}_{2_\text{EQ}} $}
+          (6,1.575) node[below]{$ + $}
+          [->, shorten >=1mm, shorten <=1mm] (6,1.875) -- (5.2,1.875) node[midway, above] {$ \text{I}_{2_\text{EQ}} $};
+    \draw (8,0.425) to[smallR, l_=$ \frac{550}{3}\Omega $] (8,1.575);
+  \end{circuitikz}
+\end{center}
+
+Nesse circuito, os parâmetros $ a $ do quadripolo \texttt{Q} são os descritos pela equação \ref{eq:params_a_calc}. Assim, a partir da 
+relação encontrada em aula entre $ \frac{V_2}{V_1} $ para parâmetros $ a $ nesse mesmo tipo de circuito, determinar-se-á esse ganho a seguir:
+$$ \frac{V_2}{V_1} = \frac{Z_L}{a_{11}Z_L + a_{12}} $$
+
+Nesse circuito em específico:
+$$ Z_L = \frac{550}{3}\Omega $$
+$$ a_{11} = - \frac{1113312761344700081760}{1920799039600120050000} $$
+$$ a_{12} = \frac{239129130371542461540}{19207990396001200500} \Omega $$
+
+Portanto:
+$$ \frac{V_2}{V_1} = \frac{\frac{550}{3}\Omega}{- \frac{1113312761344700081760}{1920799039600120050000} \cdot \frac{550}{3}\Omega + \frac{239129130371542461540}{19207990396001200500} \Omega} $$
+$$ \Rightarrow \frac{V_2}{V_1} = \frac{\frac{550}{3}\Omega}{- \frac{1113312761344700081760}{1920799039600120050000} \cdot \frac{550}{3}\Omega + \frac{239129130371542461540}{19207990396001200500} \cdot \frac{300}{300} \Omega} $$
+$$ \Rightarrow \frac{V_2}{V_1} = \frac{550}{- \frac{1113312761344700081760}{1920799039600120050000} \cdot 550 + \frac{239129130371542461540}{1920799039600120050000} \cdot 300} $$
+$$ \Rightarrow \frac{V_2}{V_1} = \frac{550 \cdot 1920799039600120050000}{- (1113312761344700081760 \cdot 550) + (239129130371542461540 \cdot 300)} $$
+$$ \Rightarrow \frac{V_2}{V_1} = \frac{1056439471780066027500000}{- 612322018739585044968000 + 71738739111462738462000} $$
+$$ \Rightarrow \frac{V_2}{V_1} = - \frac{1056439471780066027500000}{540583279628122306506000} \approx - 1,\!954 $$
+
+\begin{center}
+  \[ \scalebox{3}{$ * $} \]
+\end{center}
+
 \end{document}
