@@ -1,0 +1,994 @@
+\documentclass{report}
+
+% Language setting
+\usepackage[main=portuguese, english]{babel}
+\usepackage{csquotes}
+
+% Set page size and margins
+\usepackage[a4paper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.5cm]{geometry}
+
+% Useful packages
+\usepackage{ulem}
+\usepackage{parskip}
+\usepackage{indentfirst}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{relsize}
+\usepackage{array}
+
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{subfigure}
+\usepackage{titlesec}
+\usepackage[colorlinks=false, allbordercolors={0 0 0}, pdfborderstyle={/S/U/W 0.25}]{hyperref}
+\usepackage[hypcap=true]{caption}
+\usepackage{enumitem}
+\usepackage{soul}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{output-decimal-marker={,}}
+
+% Set section numbering from 1.1
+\renewcommand{\thesection}{\arabic{section}.1}
+
+\let\oldsection\section
+\renewcommand\section{\clearpage\oldsection}
+
+% Change section formatting
+\titleformat{\section}
+  {\fontsize{12}{15}\selectfont\bfseries}{\thesection}{1em}{}
+
+% Configure indentations
+\setlength{\parindent}{1.5cm}
+
+\begin{document}
+
+    \begin{titlepage}
+        \centering
+        
+        \LARGE {Universidade Federal do Rio Grande do Sul \\ Escola de Engenharia}
+    
+        \begin{figure}[h!]
+        \centering
+        \subfigure
+        {\includegraphics[width=0.35\linewidth]{images/logos/UFRGS.png}}
+        \hspace{1cm}
+        \subfigure
+        {\includegraphics[width=0.3\linewidth]{images/logos/EE.png}}
+        \end{figure}
+    
+        \LARGE {ENG10001 \\ Circuitos Elétricos I-C}
+        
+        \vfill
+        {\noindent\hrulefill \\
+        \bfseries \Huge{Trabalho Bônus 2} \\ \LARGE{Representação em Espaço de Estados} \\
+        \noindent\hrulefill}
+        
+        \vfill
+        {\LARGE Pedro Lubaszewski Lima (00341810) \\~\\ Turma A}
+    
+        \vfill
+        {\LARGE 10 de janeiro de 2025}
+        
+    \end{titlepage}
+
+        \renewcommand{\contentsname}{Sumário}
+        \tableofcontents
+        \clearpage
+        \addtocontents{toc}{\protect\thispagestyle{empty}}
+
+\section{Circuitos Sorteados}
+
+Primeiramente, com o meu número de matrícula \textbf{0 0 3 4 1 8 1 0}, observa-se os seguintes dígitos sorteadores:
+
+\begin{itemize}
+  \item $ N_1 = 3$;
+  \item $ N_2 = 4$;
+  \item $ N_3 = 1$;
+  \item $ N_4 = 8$;
+  \item $ N_5 = 1$;
+  \item $ N_6 = 0$.
+\end{itemize}
+
+A partir deles, sabe-se que os circuito a serem analisados são os seguintes:
+
+\begin{itemize}
+  \item Circuito de Entrada:
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}[scale=0.8]
+        \draw
+        (3,3) to[R, l=4<\ohm>] (0,3)
+        to[american voltage source, l=12<\volt>] (0,0)
+        to[R, l_=16<\ohm>] (3,0)
+        to[R, l_=10<\ohm>, *-*] (3,3)
+        to[R, l_=20<\ohm>] (6,3)
+        (3,0) to[R, l_=5<\ohm>] (6,0)
+        (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
+        (6,3) -- (8,3) (6,0) -- (8,0)
+        (8,3) to[R, l=5<\ohm>, *-*] (8,0)
+        (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
+        (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
+
+    ; \end{circuitikz}
+    \caption{\label{ckt:input_1} Circuito de Entrada 2}
+\end{figure}
+
+\begin{itemize}
+  \item Primeira Topologia de Quadripolo:
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}[scale=0.8]
+        \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+              (0,2) node[]{$ \text{V}_1 $}
+              (0,4) node[ocirc=]{} node[below]{$ + $};
+        \draw (0.06,4) to[R, l_=20<\ohm>] (3,4)
+              [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+        \draw (3,4) to[american controlled voltage source, l=$ \num{1,2} \text{V}_2 $] (3,2);
+        \draw (3,2) -- (9,2);
+        \draw (7,4) to[american controlled current source, l=$ 10 \text{I}_1 $, -*] (7,2)
+              (7,4) -- (11,4);
+        \draw (9,4) to[R, l=100<\ohm>, *-] (9,2);
+        \draw [->, shorten >=1mm, shorten <=1mm] (11,4.3) -- (10,4.3) node[midway, above] {$ \text{I}_2 $};
+        \draw (5,2) to[R, l=20<\ohm>, *-*] (5,0)
+              (0.06,0) -- (11,0);
+        \draw (11,0) node[ocirc=]{} node[above]{$ - $}
+              (11,2) node[]{$ \text{V}_2 $}
+              (11,4) node[ocirc=]{} node[below]{$ + $};
+    \end{circuitikz}
+    \caption{\label{ckt:quad_1_1} Topologia de Quadripolo 2 (\texttt{Q1})}
+\end{figure}
+
+\begin{itemize}
+  \item Segunda Topologia de Quadripolo:
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}[scale=0.8]
+        \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+              (0,2) node[]{$ \text{V}_1 $}
+              (0,4) node[ocirc=]{} node[below]{$ + $};
+        \draw (0.06,4) to[R, l_=1<\kilo\ohm>] (3,4)
+              [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+        \draw (3,4) to[R, l=100<\kilo\ohm>, *-*] (3,0)
+              (2.8,3) node[left]{$ - $}
+              (2.8,2) node[left]{$ \text{V}_\text{x} $}
+              (2.8,1) node[left]{$ + $};
+        \draw (3,4) to[R, l_=2<\kilo\ohm>] (6,4)
+              (6,4) -- (11,4);
+        \draw (6,4) to[R, l=50<\ohm>, *-] (6,2)
+              to[american controlled voltage source, l=$ 10^5 \text{V}_\text{x} $, -*] (6,0);
+        \draw (9,4) to[R, l=5<\kilo\ohm>, *-*] (9,0);
+        \draw [->, shorten >=1mm, shorten <=1mm] (11,4.3) -- (10,4.3) node[midway, above] {$ \text{I}_2 $};
+        \draw (0.06,0) -- (11,0)
+              (11,0) node[ocirc=]{} node[above]{$ - $}
+              (11,2) node[]{$ \text{V}_2 $}
+              (11,4) node[ocirc=]{} node[below]{$ + $};
+    \end{circuitikz}
+    \caption{\label{ckt:quad_2_1} Topologia de Quadripolo 3 (\texttt{Q2})}
+\end{figure}
+
+\clearpage
+\begin{itemize}
+  \item Associação dos Quadripolos:
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}[scale=0.8]
+        \draw (2,1) node[fourport, label={[anchor=center]:Q2}](Q2){}
+              (0.06,0.425) -- (Q2.port1)
+              (0.06,1.575) -- (Q2.port4)
+              (0,0.425) node[ocirc=]{} node[above]{$ - $}
+              (0,1) node[left]{$ \text{V}_{1_\text{EQ}} $}
+              (0,1.575) node[ocirc=]{} node[below]{$ + $}
+              [->, shorten >=1mm, shorten <=1mm] (0,1.875) -- (0.8,1.875) node[midway, above] {$ \text{I}_{1_\text{EQ}} $};
+        \draw (6,1) node[fourport, label={[anchor=center]:Q1}](Q1){}
+        (8.15,0.425) -- (Q1.port2)
+        (8.15,1.575) -- (Q1.port3)
+        (8.15,0.425) node[ocirc=]{} node[above]{$ - $}
+        (8.15,1) node[right]{$ \text{V}_{2_\text{EQ}} $}
+        (8.15,1.575) node[ocirc=]{} node[below]{$ + $}
+        [->, shorten >=1mm, shorten <=1mm] (8.15,1.875) -- (7.15,1.875) node[midway, above] {$ \text{I}_{2_\text{EQ}} $};
+      \draw (Q2.port2) -- (Q1.port1)
+            (Q2.port3) -- (Q1.port4);
+    \end{circuitikz}
+    \caption{\label{ckt:quad_assoc} Associação dos Quadripolos \texttt{Q1} e \texttt{Q2}}
+\end{figure}
+
+\begin{itemize}
+  \item Circuito de Saída:
+\end{itemize}
+
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}[scale=0.8]
+        \draw (0,0) node[ocirc=]{} node[left]{D}
+              (0,4) node[ocirc=]{} node[left]{C};
+        \draw (0.06,4) to[R, l_=100<\ohm>] (3,4)
+              [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {I};
+        \draw (3,4) to[american controlled voltage source, l=$ \num{0,5}\text{V} $, -*] (3,0);
+        \draw (6,0) to[american controlled current source, l_=$ \num{0,5}\text{I} $, *-] (6,4);
+        \draw (8.5,4) to[R, l=500<\ohm>, *-*] (8.5,0);
+        \draw (0.06,0) -- (12,0)
+              (6,4) -- (12,4)
+              to[american controlled current source, l=$ 10^{-3}\text{V} $] (12,0)
+              (11.25,1) node[left]{$ - $}
+              (11.25,2) node[left]{V}
+              (11.25,3) node[left]{$ + $};
+    \end{circuitikz}
+    \caption{\label{ckt:output_1} Circuito de Saída 1}
+\end{figure}
+
+\section{Circuito Equivalente de Thevénin da Entrada}
+
+Partindo do circuito de entrada sorteado (figura \ref{ckt:input_1}), pode-se adotar a estratégia de transformação de fontes repetidas vezes até
+chegar-se no circuito equivalente de Thevénin:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (3,3) to[R, l=4<\ohm>] (0,3)
+    to[american voltage source, l=12<\volt>] (0,0)
+    to[R, l_=16<\ohm>] (3,0)
+    to[R, l_=10<\ohm>, *-*] (3,3)
+    to[R, l_=20<\ohm>] (6,3)
+    (3,0) to[R, l_=5<\ohm>] (6,0)
+    (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
+    (6,3) -- (8,3) (6,0) -- (8,0)
+    (8,3) to[R, l=5<\ohm>, *-*] (8,0)
+    (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
+    (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+  \[ \scalebox{3}{$ \equiv $} \]
+
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (3,3) to[R, l=20<\ohm>] (0,3)
+    to[american voltage source, l=12<\volt>] (0,0)
+    -- (3,0)
+    to[R, l_=10<\ohm>, *-*] (3,3)
+    to[R, l_=20<\ohm>] (6,3)
+    (3,0) to[R, l_=5<\ohm>] (6,0)
+    (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
+    (6,3) -- (8,3) (6,0) -- (8,0)
+    (8,3) to[R, l=5<\ohm>, *-*] (8,0)
+    (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
+    (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+  \[ \scalebox{3}{$ \equiv $} \]
+
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (0,3) -- (4,3)
+    (0,0) to[american current source, l_=$ \num{0,6}\text{A} $] (0,3)
+    (0,0) -- (4,0)
+    (2,3) to[R, l=20<\ohm>, *-*] (2,0)
+    (4,3) to[R, l=10<\ohm>, *-*] (4,0)
+    (4,3) to[R, l_=20<\ohm>] (7,3)
+    (4,0) to[R, l_=5<\ohm>] (7,0)
+    (7,0) to[american current source, l_=3<\ampere>, *-*] (7,3)
+    (7,3) -- (9,3) (7,0) -- (9,0)
+    (9,3) to[R, l=5<\ohm>, *-*] (9,0)
+    (9,3) -- (11,3) node[ocirc=](A){} node[right]{A}
+    (9,0) -- (11,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+  \[ \scalebox{3}{$ \equiv $} \]
+
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (0,3) -- (3,3)
+    (0,0) to[american current source, l_=$ \num{0,6}\text{A} $] (0,3)
+    (0,0) -- (3,0)
+    (2,3) to[R, l=$ \frac{20}{3} \Omega $, *-*] (2,0)
+    (3,3) to[R, l_=20<\ohm>] (6,3)
+    (3,0) to[R, l_=5<\ohm>] (6,0)
+    (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
+    (6,3) -- (8,3) (6,0) -- (8,0)
+    (8,3) to[R, l=5<\ohm>, *-*] (8,0)
+    (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
+    (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+  \clearpage
+  \[ \scalebox{3}{$ \equiv $} \]
+
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (0,3) to[R, l_=$ \frac{20}{3} \Omega $] (3,3)
+    (0,3) to[american voltage source, l=4<\volt>] (0,0)
+    (0,0) -- (3,0)
+    (3,3) to[R, l_=20<\ohm>] (6,3)
+    (3,0) to[R, l_=5<\ohm>] (6,0)
+    (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
+    (6,3) -- (8,3) (6,0) -- (8,0)
+    (8,3) to[R, l=5<\ohm>, *-*] (8,0)
+    (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
+    (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+  \[ \scalebox{3}{$ \equiv $} \]
+
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (0,3) to[R, l_=$ \frac{95}{3} \Omega $] (3,3)
+    (0,3) to[american voltage source, l=4<\volt>] (0,0)
+    (0,0) -- (3,0)
+    (3,0) to[american current source, l_=3<\ampere>, *-*] (3,3)
+    (3,3) -- (5,3) (3,0) -- (5,0)
+    (5,3) to[R, l=5<\ohm>, *-*] (5,0)
+    (5,3) -- (7,3) node[ocirc=](A){} node[right]{A}
+    (5,0) -- (7,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+  \[ \scalebox{3}{$ \equiv $} \]
+
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (0,3) -- (4,3)
+    (0,0) to[american current source, l_=$ \frac{12}{95} \text{A} $] (0,3)
+    (2,3) to[R, l=$ \frac{95}{3} \Omega $, *-*] (2,0)
+    (0,0) -- (4,0)
+    (4,0) to[american current source, l_=3<\ampere>, *-*] (4,3)
+    (4,3) -- (6,3) (4,0) -- (6,0)
+    (6,3) to[R, l=5<\ohm>, *-*] (6,0)
+    (6,3) -- (8,3) node[ocirc=](A){} node[right]{A}
+    (6,0) -- (8,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+  \[ \scalebox{3}{$ \equiv $} \]
+
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (0,0) to[american current source, l_=$ \frac{297}{95} \text{A} $] (0,3)
+    (2,3) to[R, l=$ \frac{95}{22} \Omega $, *-*] (2,0)
+    (0,3) -- (4,3) node[ocirc=](A){} node[right]{A}
+    (0,0) -- (4,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+  \[ \scalebox{3}{$ \equiv $} \]
+
+  \begin{circuitikz}[scale=0.8]
+    \draw
+    (0,3) to[american voltage source, l=$ \frac{27}{2} \text{V} $] (0,0)
+    (0,3) to[R, l_=$ \frac{95}{22} \Omega $] (3,3)
+    (3,3) -- (4,3) node[ocirc=](A){} node[right]{A}
+    (0,0) -- (4,0) node[ocirc](B){} node[right]{B}
+
+  ; \end{circuitikz}
+
+\end{center}
+
+\clearpage
+Assim, com a sequência ilustrada acima, chegou-se ao circuito equivalente de Thevénin da entrada
+com $ V_{TH} = \frac{27}{2} \text{V} = 13,\!5 \text{V} $ e $ R_{TH} = \frac{95}{22} \Omega = 4,\!3\overline{18} \Omega $.
+
+\begin{center}
+  \[ \scalebox{3}{$ * $} \]
+\end{center}
+
+\section{Análise da Associação de Quadripolos}
+
+\subsection{Representação dos Circuitos}
+
+Dada a associação de quadripolos sorteada, é mais prudente representar ambos os quadripolos com os parâmetros $ a $, visto
+que o quadripolo equivalente apresenta parâmetros da seguinte forma:
+\begin{equation}
+  \label{eq:quad_cascade}
+  \centering
+  \begin{matrix}
+    a_{11} = a^{'}_{11}a^{''}_{11} + a^{'}_{12}a^{''}_{21} & \hspace{10pt} a_{12} = a^{'}_{11}a^{''}_{12} + a^{'}_{12}a^{''}_{22} \\\\
+    a_{21} = a^{'}_{21}a^{''}_{11} + a^{'}_{22}a^{''}_{21} & \hspace{10pt} a_{22} = a^{'}_{21}a^{''}_{12} + a^{'}_{22}a^{''}_{22}
+  \end{matrix}
+\end{equation}
+
+Onde o primeiro quadripolo (\texttt{Q2}) da figura \ref{ckt:quad_assoc} tem os parâmetros $ a^{'} $ e o segundo quadripolo (\texttt{Q1}) tem os parâmetros $ a^{''} $.
+Além disso, os parâmetros $ a $ representam as variáveis dos quadripolos da seguinte maneira:
+\begin{equation}
+  \label{eq:quad_params_a}
+  \centering
+  \begin{matrix}
+    V_1 = a_{11}V_2 - a_{12}I_2 \\
+    I_1 = a_{21}V_2 - a_{22}I_2
+  \end{matrix}
+\end{equation}
+
+\subsection{Parâmetros do Quadripolo \texttt{Q2}}
+
+Com o segundo quadripolo sorteado (\texttt{Q2}), calcular-se-á os seus parâmetros $ a^{'} $ para realizar a sua associação com o primeiro quadripolo (\texttt{Q1}):
+
+\begin{center}
+  
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+          (0,2) node[]{$ \text{V}_1 $}
+          (0,4) node[ocirc=]{} node[below]{$ + $};
+    \draw (0.06,4) to[R, l_=1<\kilo\ohm>] (3,4)
+          [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+    \draw (3,4) to[R, l=100<\kilo\ohm>, *-*] (3,0)
+          (2.8,3) node[left]{$ - $}
+          (2.8,2) node[left]{$ \text{V}_\text{x} $}
+          (2.8,1) node[left]{$ + $};
+    \draw (3,4) to[R, l_=2<\kilo\ohm>] (6,4)
+          (6,4) -- (11,4);
+    \draw (6,4) to[R, l=50<\ohm>, *-] (6,2)
+          to[american controlled voltage source, l=$ 10^5 \text{V}_\text{x} $, -*] (6,0);
+    \draw (9,4) to[R, l=5<\kilo\ohm>, *-*] (9,0);
+    \draw [->, shorten >=1mm, shorten <=1mm] (11,4.3) -- (10,4.3) node[midway, above] {$ \text{I}_2 $};
+    \draw (0.06,0) -- (11,0)
+          (11,0) node[ocirc=]{} node[above]{$ - $}
+          (11,2) node[]{$ \text{V}_2 $}
+          (11,4) node[ocirc=]{} node[below]{$ + $};
+  \end{circuitikz}
+
+\end{center}
+
+\subsubsection{Parâmetros $ a^{'}_{11} $ e $ a^{'}_{21} $}
+
+Através da equação \ref{eq:quad_params_a}, para calcular os parâmetros $ a^{'}_{11} $ e $ a^{'}_{21} $, basta zerar a corrente de saída $ I_2 $ e determinar os
+valores de $ V_1 $ e $ I_1 $ em função da variável restante $ V_2 $. Calcular-se-á essas variáveis através da análise nodal:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+          (0,2) node[]{$ \text{V}_1 $}
+          (0,4) node[ocirc=]{} node[below]{$ + $};
+    \draw (0.06,4) to[R, l_=1<\kilo\ohm>] (3,4)
+          [->, shorten >=1mm, shorten <=1mm] (1,4.5) -- (2,4.5) node[midway, above] {$ \text{I}_1 $};
+    \draw (3,4) to[R, l=100<\kilo\ohm>, *-*] (3,0)
+          (2.8,3) node[left]{$ - $}
+          (2.8,2) node[left]{$ \text{V}_\text{x} $}
+          (2.8,1) node[left]{$ + $};
+    \draw [->, shorten >=1mm, shorten <=1mm] (3.3,2.8) -- (3.3,3.8) node[midway, right] {$ \text{I}_2 $};
+    \draw (3,4) node[above]{$ \text{V}_\text{A} $}
+          (3,4) to[R, l_=2<\kilo\ohm>] (6,4)
+          (6,4) -- (9,4);
+    \draw [->, shorten >=1mm, shorten <=1mm] (4,4.5) -- (5,4.5) node[midway, above] {$ \text{I}_3 $};
+    \draw (6,4) node[above]{$ \text{V}_\text{B} $}
+          (6,4) to[R, l=50<\ohm>, *-] (6,2)
+          to[american controlled voltage source, l=$ 10^5 \text{V}_\text{x} $, -*] (6,0)
+          (6,0) node[ground]{};
+    \draw [->, shorten >=1mm, shorten <=1mm] (5.6,2.8) -- (5.6,3.8) node[midway, left] {$ \text{I}_4 $};
+    \draw (9,4) to[R, l=5<\kilo\ohm>] (9,0);
+    \draw (0.06,0) -- (9,0)
+          (8.75,1) node[left]{$ - $}
+          (8.75,2) node[left]{$ \text{V}_2 $}
+          (8.75,3) node[left]{$ + $};
+    \draw [->, shorten >=1mm, shorten <=1mm] (6.5,4.5) -- (7.5,4.5) node[midway, above] {$ \text{I}_5 $};
+  \end{circuitikz}
+
+\end{center}
+
+Nesse caso, com esses nós e essas correntes, sabe-se que:
+$$ V_x = - V_A $$
+$$ V_2 = V_B $$
+
+Equações observáveis de cara no circuito. Além disso, para modelar as correntes em função de $ V_A $ e $ V_B $:
+$$ I_1 = \frac{V_1 - V_A}{1 \text{k}\Omega} $$
+$$ I_2 = \frac{V_x}{100 \text{k}\Omega} = - \frac{V_A}{100 \text{k}\Omega} $$
+$$ I_3 = \frac{V_A - V_B}{2 \text{k}\Omega} $$
+$$ I_4 = \frac{10^5 \cdot V_x - V_B}{50\Omega} = - \frac{10^5 \cdot V_A + V_B}{50\Omega} $$
+$$ I_5 = \frac{V_B}{5 \text{k}\Omega} $$
+
+Com essas correntes, pode-se utilizar a Lei dos Nós para cada nó:
+
+\begin{itemize}
+  \item Nó com $ V_A $:
+\end{itemize}
+$$ I_1 + I_2 = I_3 $$
+$$ \Rightarrow \frac{V_1 - V_A}{1 \text{k}\Omega} - \frac{V_A}{100 \text{k}\Omega}  = \frac{V_A - V_B}{2 \text{k}\Omega} $$
+$$ \Rightarrow \frac{100V_1 - 100V_A - V_A}{100 \text{k}\Omega} = \frac{50V_A - 50V_B}{100 \text{k}\Omega} $$
+$$ \Rightarrow 100V_1 - 101V_A = 50V_A - 50V_B $$
+\begin{equation}
+  \label{eq:a'11_a'21_I}
+  \centering
+  \Rightarrow 151V_A - 50V_B = 100V_1 \tag{I}
+\end{equation}
+
+\begin{itemize}
+  \item Nó com $ V_B $:
+\end{itemize}
+$$ I_3 + I_4 = I_5 $$
+$$ \Rightarrow \frac{V_A - V_B}{2 \text{k}\Omega} - \frac{10^5 \cdot V_A + V_B}{50\Omega} = \frac{V_B}{5 \text{k}\Omega} $$
+$$ \Rightarrow \frac{5V_A - 5V_B}{10 \text{k}\Omega} - \frac{2 \cdot 10^7 \cdot V_A + 200V_B}{10\text{k}\Omega} = \frac{2V_B}{10 \text{k}\Omega} $$
+$$ \Rightarrow 5V_A - 5V_B - 2 \cdot 10^7 \cdot V_A - 200V_B = 2V_B $$
+\begin{equation}
+  \label{eq:a'11_a'21_II}
+  \centering
+  \Rightarrow V_A = - \frac{207}{19999995}V_B \tag{II}
+\end{equation}
+
+Substituindo a equação \ref{eq:a'11_a'21_II} na equação \ref{eq:a'11_a'21_I}:
+$$ 151 \cdot \left(- \frac{207}{19999995}V_B \right) - 50V_B = 100V_1 $$
+$$ \Rightarrow - \frac{31257}{19999995}V_B - 50V_B = 100V_1 $$
+$$ \Rightarrow - \frac{31257}{19999995}V_B - \frac{999999750}{19999995}V_B = \frac{1999999500}{19999995}V_1 $$
+$$ \Rightarrow - 1000031007V_B = 1999999500V_1 $$
+\begin{equation}
+  \label{eq:a'11_a'21_III}
+  \centering
+  \Rightarrow V_B = - \frac{1999999500}{1000031007}V_1 \tag{III}
+\end{equation}
+
+Utilizando o valor obtido na equação \ref{eq:a'11_a'21_III} em \ref{eq:a'11_a'21_II}:
+$$ V_A = - \frac{207}{19999995} \cdot \left( - \frac{1999999500}{1000031007}V_1 \right) $$
+\begin{equation}
+  \label{eq:a'11_a'21_IV}
+  \centering
+  \Rightarrow V_A = \frac{20700}{1000031007}V_1 \tag{IV}
+\end{equation}
+
+Com essas equações acima, pode-se obter as variáveis de saída (e consequentemente os parâmetros) da seguinte forma:
+$$ V_B = V_2 $$
+$$ \Rightarrow - \frac{1999999500}{1000031007}V_1 = V_2 $$
+$$ \Rightarrow V_1 = - \frac{1000031007}{1999999500}V_2 $$
+$$ \Rightarrow a^{'}_{11} = - \frac{1000031007}{1999999500} \approx - 0,\!5 $$
+$$ I_1 = \frac{V_1 - V_A}{1 \text{k}\Omega} $$
+$$ \Rightarrow I_1 = \frac{V_1 - \frac{20700}{1000031007}V_1}{1 \text{k}\Omega} $$
+$$ \Rightarrow I_1 = \frac{1000031007V_1 - 20700V_1}{1000031007000 \Omega} $$
+$$ \Rightarrow I_1 = \frac{1000010307V_1}{1000031007000\Omega} $$
+$$ \Rightarrow I_1 = \frac{1000010307}{1000031007000\Omega}\left(- \frac{1000031007}{1999999500}V_2\right) $$
+$$ \Rightarrow I_1 = - \frac{1,\!000041314 \cdot 10^{18}}{2,\!000061514 \cdot 10^{21}\Omega}V_2 $$
+$$ \Rightarrow I_1 = - \frac{1000041314}{2000061514000\Omega}V_2 $$
+$$ \Rightarrow a^{'}_{21} = - \frac{1000041314}{2000061514000}\text{S} \approx - 0,0005\text{S} = - 0,\!5\text{mS} $$
+
+\subsubsection{Parâmetros $ a^{'}_{12} $ e $ a^{'}_{22} $}
+
+Agora, zerando a tensão $ V_2 $, calcular-se-á os parâmetros $ a^{'}_{12} $ e $ a^{'}_{22} $ a partir de mais uma análise nodal. Isto é,
+encontrando $ V_1 $ e $ I_1 $ em função de $ I_2 $:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+          (0,2) node[]{$ \text{V}_1 $}
+          (0,4) node[ocirc=]{} node[below]{$ + $};
+    \draw (0.06,4) to[R, l_=1<\kilo\ohm>] (3,4)
+          [->, shorten >=1mm, shorten <=1mm] (1,4.5) -- (2,4.5) node[midway, above] {$ \text{I}_1 $};
+    \draw (3,4) to[R, l=100<\kilo\ohm>, *-*] (3,0)
+          (2.8,3) node[left]{$ - $}
+          (2.8,2) node[left]{$ \text{V}_\text{x} $}
+          (2.8,1) node[left]{$ + $};
+    \draw [->, shorten >=1mm, shorten <=1mm] (3.3,2.8) -- (3.3,3.8) node[midway, right] {$ \text{I}_\text{x} $};
+    \draw (3,4) node[above]{$ \text{V}_\text{A} $}
+          (3,4) to[R, l_=2<\kilo\ohm>] (6,4)
+          (6,4) -- (9,4);
+    \draw [->, shorten >=1mm, shorten <=1mm] (4,4.5) -- (5,4.5) node[midway, above] {$ \text{I}_\text{y} $};
+    \draw (6,4) node[above]{$ \text{V}_\text{B} $}
+          (6,4) to[R, l=50<\ohm>, *-] (6,2)
+          to[american controlled voltage source, l=$ 10^5 \text{V}_\text{x} $, -*] (6,0)
+          (6,0) node[ground]{};
+    \draw [->, shorten >=1mm, shorten <=1mm] (5.6,2.8) -- (5.6,3.8) node[midway, left] {$ \text{I}_\text{z} $};
+    \draw (9,4) -- (9,0);
+    \draw (0.06,0) -- (9,0);
+    \draw [->, shorten >=1mm, shorten <=1mm] (7.5,4.5) -- (6.5,4.5) node[midway, above] {$ \text{I}_2 $};
+  \end{circuitikz}
+
+\end{center}
+
+Com essa configuração, observa-se que:
+$$ V_B = V_2 = 0\text{V} $$
+
+Por conta disso, a tensão sobre o resistor de $ 50\Omega $ deve ter tensão de mesma magnitude e sentido contrário ao da fonte dependente
+abaixo dele. Com isso:
+$$ I_z = \frac{10^5 \cdot V_x}{50\Omega} $$
+
+E o resto pode-se analisar normalmente:
+$$ I_y = \frac{V_A}{2\text{k}\Omega} $$
+$$ I_x = \frac{V_x}{100\text{k}\Omega} = - \frac{V_A}{100\text{k}\Omega} $$
+$$ I_1 = \frac{V_1 - V_A}{1\text{k}\Omega} $$
+
+\begin{itemize}
+  \item Nó com $ V_A $:
+\end{itemize}
+$$ I_1 + I_x = I_y $$
+$$ \Rightarrow \frac{V_1 - V_A}{1\text{k}\Omega} - \frac{V_A}{100\text{k}\Omega} = \frac{V_A}{2\text{k}\Omega} $$
+$$ \Rightarrow \frac{100V_1 - 100V_A - V_A}{100\text{k}\Omega} = \frac{50V_A}{100\text{k}\Omega} $$
+$$ \Rightarrow 100V_1 - 101V_A = 50V_A $$
+$$ \Rightarrow 151V_A = 100V_1 $$
+\begin{equation}
+  \label{eq:a'12_a'22_I}
+  \centering
+  \Rightarrow V_1 = \frac{151}{100}V_A \tag{I}
+\end{equation}
+
+\begin{itemize}
+  \item Nó com $ V_B $:
+\end{itemize}
+$$ I_y + I_z + I_2 = 0 $$
+$$ \Rightarrow \frac{V_A}{2\text{k}\Omega} + \frac{10^5 \cdot V_x}{50\Omega} + I_2 = 0 $$
+$$ \Rightarrow \frac{V_A}{2\text{k}\Omega} - \frac{10^5 \cdot V_A}{50\Omega} + I_2 = 0 $$
+$$ \Rightarrow \frac{V_A}{2\text{k}\Omega} - \frac{4 \cdot 10^6 \cdot V_A}{2\text{k}\Omega} + \frac{2\text{k}\Omega \cdot I_2}{2\text{k}\Omega} = 0 $$
+$$ \Rightarrow 3999999V_A = 2000\Omega \cdot I_2 $$
+\begin{equation}
+  \label{eq:a'12_a'22_II}
+  \centering
+  \Rightarrow V_A = \frac{2000}{3999999} \Omega \cdot I_2 \tag{II}
+\end{equation}
+
+Utilizando a equação \ref{eq:a'12_a'22_II} em \ref{eq:a'12_a'22_I}:
+$$ V_1 = \frac{151}{100} \cdot \left( \frac{2000}{3999999} \Omega \cdot I_2 \right) $$
+$$ \Rightarrow V_1 = \frac{3020}{3999999} \Omega \cdot I_2 $$
+
+Cuidando com o sinal inerente da equação \ref{eq:quad_params_a}:
+$$ a^{'}_{12} = - \frac{3020}{3999999} \Omega $$
+
+Para finalizar:
+$$ I_1 = \frac{V_1 - V_A}{1\text{k}\Omega} $$
+$$ \Rightarrow I_1 = \frac{\frac{151}{100}V_A - V_A}{1\text{k}\Omega} $$
+$$ \Rightarrow I_1 = \frac{151V_A - 100V_A}{100\text{k}\Omega} $$
+$$ \Rightarrow I_1 = \frac{51V_A}{100\text{k}\Omega} $$
+$$ \Rightarrow I_1 = \frac{51\left( \frac{2000}{3999999} \Omega \cdot I_2 \right)}{100\text{k}\Omega} $$
+$$ \Rightarrow I_1 = \frac{102}{399999900} I_2 $$
+
+Relembrando do sinal da equação \ref{eq:quad_params_a}:
+$$ a^{'}_{22} = - \frac{102}{399999900} $$
+
+\subsubsection{Unindo os parâmetros $ a^{'} $ do quadripolo \texttt{Q2}}
+
+Concluindo, abaixo estão os parâmetros calculados para esse quadripolo:
+
+\begin{equation}
+  \label{eq:quad_params_a'}
+  \centering
+  \begin{matrix}
+    a^{'}_{11} = - \frac{1000031007}{1999999500} & \hspace{10pt} a^{'}_{12} = - \frac{3020}{3999999} \Omega \\\\
+    a^{'}_{21} = - \frac{1000041314}{2000061514000}\text{S} & \hspace{10pt} a^{'}_{22} = - \frac{102}{399999900}
+  \end{matrix}
+\end{equation}
+
+\begin{center}
+    \[ \scalebox{3}{$ * $} \]
+\end{center}
+
+\subsection{Parâmetros do Quadripolo \texttt{Q1}}
+
+Após calcular os parâmetros $ a^{'} $ do quadripolo \texttt{Q2} mostrados na equação \ref{eq:quad_params_a'}, calcular-se-á os parâmetros $ a^{''} $ do quadripolo
+\texttt{Q1}:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+          (0,2) node[]{$ \text{V}_1 $}
+          (0,4) node[ocirc=]{} node[below]{$ + $};
+    \draw (0.06,4) to[R, l_=20<\ohm>] (3,4)
+          [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+    \draw (3,4) to[american controlled voltage source, l=$ \num{1,2} \text{V}_2 $] (3,2);
+    \draw (3,2) -- (9,2);
+    \draw (7,4) to[american controlled current source, l=$ 10 \text{I}_1 $, -*] (7,2)
+          (7,4) -- (11,4);
+    \draw (9,4) to[R, l=100<\ohm>, *-] (9,2);
+    \draw [->, shorten >=1mm, shorten <=1mm] (11,4.3) -- (10,4.3) node[midway, above] {$ \text{I}_2 $};
+    \draw (5,2) to[R, l=20<\ohm>, *-*] (5,0)
+          (0.06,0) -- (11,0);
+    \draw (11,0) node[ocirc=]{} node[above]{$ - $}
+          (11,2) node[]{$ \text{V}_2 $}
+          (11,4) node[ocirc=]{} node[below]{$ + $};
+  \end{circuitikz}
+\end{center}
+
+\subsubsection{Parâmetros $ a^{''}_{11} $ e $ a^{''}_{21} $}
+
+Através da equação \ref{eq:quad_params_a}, zerar-se-á o valor de $ I_2 $ para calcular os dois primeiros parâmetros $ a^{''} $, colocando
+$ V_1 $ e $ I_1 $ em função da variável de entrada $ V_2 $:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+          (0,2) node[]{$ \text{V}_1 $}
+          (0,4) node[ocirc=]{} node[below]{$ + $};
+    \draw (0.06,4) to[R, l_=20<\ohm>] (3,4)
+          [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+    \draw (3,4) to[american controlled voltage source, l=$ \num{1,2} \text{V}_2 $] (3,2);
+    \draw (3,2) -- (8,2);
+    \draw (6,4) to[american controlled current source, l=$ 10 \text{I}_1 $, -*] (6,2)
+          (6,4) -- (11,4);
+    \draw (8,4) to[R, l=100<\ohm>, *-] (8,2)
+          [->, shorten >=1mm, shorten <=1mm] (6.5,1.7) -- (7.5,1.7) node[midway, below] {$ 10 \text{I}_1 $};
+    \draw (5,2) to[R, l=20<\ohm>, *-*] (5,0)
+          (0.06,0) -- (9,0);
+    \draw [->, shorten >=1mm, shorten <=1mm] (4.5,1.5) -- (4.5,0.5) node[midway, left] {$ \text{I}_1 $};
+    \draw (9,0) node[ocirc=]{} node[above]{$ - $}
+          (10,2) node[]{$ \text{V}_2 $}
+          (11,4) node[ocirc=]{} node[below]{$ + $};
+  \end{circuitikz}
+\end{center}
+
+Pelo desenho acima, é perceptível que, pela malha direita:
+$$ - V_2 - 10 \cdot I_1 \cdot 100\Omega + I_1 \cdot 20\Omega = 0 $$
+$$ \Rightarrow - 1000\Omega \cdot I_1 + 20\Omega \cdot I_1 = V_2 $$
+$$ \Rightarrow - 980\Omega \cdot I_1 = V_2 $$
+$$ \Rightarrow I_1 = - \frac{1}{980}\text{S} \cdot V_2 $$
+$$ \Rightarrow a^{''}_{21} = - \frac{1}{980}\text{S} \approx - 0,\!001\text{S} = - 1\text{mS} $$
+
+Fazendo a malha do lado esquerdo:
+$$ - V_1 + I_1 \cdot 20\Omega + 1,2 \cdot V_2 + I_1 \cdot 20\Omega = 0 $$
+$$ \Rightarrow V_1 = 40\Omega \cdot I_1 + 1,2 \cdot V_2 $$
+$$ \Rightarrow V_1 = 40\Omega \cdot \left( - \frac{1}{980\Omega} V_2 \right) + 1,2 \cdot V_2 $$
+$$ \Rightarrow V_1 = - \frac{2}{49} V_2 + 1,2 \cdot V_2 $$
+$$ \Rightarrow V_1 = - \frac{10}{245} V_2 + \frac{294}{245} V_2 $$
+$$ \Rightarrow V_1 = \frac{284}{245} V_2 $$
+$$ \Rightarrow a^{''}_{11} = \frac{284}{245} \approx 1,\!159 $$
+
+\subsubsection{Parâmetros $ a^{''}_{12} $ e $ a^{''}_{22} $}
+
+Através da equação \ref{eq:quad_params_a}, zerar-se-á o valor de $ V_2 $ para calcular os dois últimos parâmetros $ a^{''} $, colocando
+$ V_1 $ e $ I_1 $ em função da variável de entrada $ I_2 $:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (0,0) node[ocirc=]{} node[above]{$ - $}
+          (0,2) node[]{$ \text{V}_1 $}
+          (0,4) node[ocirc=]{} node[below]{$ + $};
+    \draw (0.06,4) to[R, l_=20<\ohm>] (3,4)
+          [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
+    \draw (3,4) to[american controlled voltage source, l=$ \num{1,2} \text{V}_2 $] (3,2);
+    \draw (3,2) -- (9,2);
+    \draw (7,4) to[american controlled current source, l=$ 10 \text{I}_1 $, -*] (7,2)
+          (7,4) -- (11,4);
+    \draw (9,4) to[R, l=100<\ohm>, *-] (9,2);
+    \draw [->, shorten >=1mm, shorten <=1mm] (10.5,4.3) -- (9.5,4.3) node[midway, above] {$ \text{I}_2 $};
+    \draw [->, shorten >=1mm, shorten <=1mm] (6.5,2.3) -- (5.5,2.3) node[midway, above] {$ \text{I}_2 $};
+    \draw (5,2) node[above]{$ \text{V}_\text{A} $}
+          (5,2) to[R, l=20<\ohm>, *-*] (5,0)
+          (5,0) node[ground]{}
+          (0.06,0) -- (11,0);
+    \draw [->, shorten >=1mm, shorten <=1mm] (4.5,1.5) -- (4.5,0.5) node[midway, left] {$ \text{I}_3 $};
+    \draw (11,0) -- (11,4);
+  \end{circuitikz}
+\end{center}
+
+Pela figura acima, é perceptível que o resistor de $ 20\Omega $ abaixo está em paralelo com o lado direito do circuito. Por conta disso
+descobrir-se-á a tensão sobre ele através de análise nodal. No lado direito do nó com potencial $ V_A $, observa-se, decorrente do fato dos
+componentes em paralelo, que a corrente $ I_2 $ flui por ali no sentido da figura:
+$$ I_1 = \frac{V_1 - 1,\!2 \cdot V_2 - V_A}{20\Omega} = \frac{V_1 - V_A}{20\Omega} $$
+$$ I_3 = \frac{V_A}{20\Omega} $$
+
+Agora, equacionando o nó $ V_A $:
+$$ I_1 + I_2 = I_3 $$
+$$ \Rightarrow \frac{V_1 - V_A}{20\Omega} + I_2 = \frac{V_A}{20\Omega} $$
+$$ \Rightarrow \frac{V_1 - V_A}{20\Omega} + \frac{20\Omega}{20\Omega}I_2 = \frac{V_A}{20\Omega} $$
+\begin{equation}
+  \label{eq:a''12_a''22_I}
+  \centering
+  \Rightarrow V_1 = 2V_A - 20\Omega \cdot I_2 \tag{I}
+\end{equation}
+
+Então, analisando o paralelo na direita, onde determinou-se que há uma tensão comum de $ V_A $, encontrar-se-á uma relação entre $ V_A $ e $ I_2 $:
+$$ I_2 = 10 \cdot I_1 - \frac{V_A}{100\Omega} $$
+$$ I_1 = I_3 - I_2 $$
+$$ \Rightarrow I_1 = \frac{V_A}{20\Omega} - I_2 $$
+$$ \Rightarrow I_2 = 10 \cdot \left( \frac{V_A}{20\Omega} - I_2 \right) - \frac{V_A}{100\Omega} $$
+$$ \Rightarrow \frac{100\Omega}{100\Omega}I_2 = \frac{50}{100\Omega}V_A - \frac{1000\Omega}{100\Omega}I_2 - \frac{1}{100\Omega}V_A $$
+$$ \Rightarrow 1100\Omega \cdot I_2 = 49V_A $$
+\begin{equation}
+  \label{eq:a''12_a''22_II}
+  \centering
+  \Rightarrow V_A = \frac{1100}{49}\Omega \cdot I_2 \tag{II}
+\end{equation}
+
+Utilizando a equação \ref{eq:a''12_a''22_II} na equação \ref{eq:a''12_a''22_I}:
+$$ V_1 = 2 \cdot \left( \frac{1100}{49}\Omega \cdot I_2 \right) - 20\Omega \cdot I_2 $$
+$$ \Rightarrow V_1 = \frac{2200}{49}\Omega \cdot I_2 - \frac{980}{49}\Omega \cdot I_2 $$
+$$ \Rightarrow V_1 = \frac{1220}{49}\Omega \cdot I_2 $$
+
+Cuidando o sinal da equação \ref{eq:quad_params_a}:
+$$ a^{''}_{12} = - \frac{1220}{49}\Omega \approx - 24,\!898\Omega $$
+
+Com a equação \ref{eq:a''12_a''22_II}, pode-se calcular $ I_1 $:
+$$ I_1 = \frac{V_A}{20\Omega} - I_2 $$
+$$ \Rightarrow I_1 = \frac{\frac{1100}{49}\Omega \cdot I_2}{20\Omega} - I_2 $$
+$$ \Rightarrow I_1 = \frac{1100}{980}I_2 - I_2 $$
+$$ \Rightarrow I_1 = \frac{1100}{980}I_2 - \frac{980}{980}I_2 $$
+$$ \Rightarrow I_1 = \frac{120}{980}I_2 $$
+$$ \Rightarrow I_1 = \frac{6}{49}I_2 $$
+
+Novamente cuidando do sinal na equação \ref{eq:quad_params_a}:
+$$ \Rightarrow a^{''}_{22} = - \frac{6}{49} \approx - 0,\!122 $$
+
+\subsubsection{Unindo os parâmetros $ a^{''} $ do quadripolo \texttt{Q1}}
+
+Concluindo, abaixo estão os parâmetros calculados para esse quadripolo:
+
+\begin{equation}
+  \label{eq:quad_params_a''}
+  \centering
+  \begin{matrix}
+    a^{''}_{11} = \frac{284}{245} & \hspace{10pt} a^{''}_{12} = - \frac{1220}{49} \Omega \\\\
+    a^{''}_{21} = - \frac{1}{980}\text{S} & \hspace{10pt} a^{''}_{22} = - \frac{6}{49}
+  \end{matrix}
+\end{equation}
+
+\begin{center}
+    \[ \scalebox{3}{$ * $} \]
+\end{center}
+
+\subsection{União dos Quadripolos}
+
+Juntando os parâmetros $ a^{'} $ da equação \ref{eq:quad_params_a'} e os parâmetros $ a^{''} $ da equação \ref{eq:quad_params_a''} na equação \ref{eq:quad_cascade} de
+associação em cascata:
+$$ a_{11} = a^{'}_{11}a^{''}_{11} + a^{'}_{12}a^{''}_{21} $$
+$$ \Rightarrow a_{11} = \left(- \frac{1000031007}{1999999500}\right) \cdot \left(\frac{284}{245}\right) + \left(- \frac{3020}{3999999} \Omega\right) \cdot \left(- \frac{1}{980}\text{S}\right) $$
+$$ \Rightarrow a_{11} = - \frac{284008805988}{489999877500} + \frac{3020}{3919999020} $$
+$$ \Rightarrow a_{11} = - \frac{1113314241144330131760}{1920799039600120050000} + \frac{1479799630050000}{1920799039600120050000} $$
+$$ \Rightarrow a_{11} = - \frac{1113312761344700081760}{1920799039600120050000} \approx -0,\!579 $$
+
+$$ a_{12} = a^{'}_{11}a^{''}_{12} + a^{'}_{12}a^{''}_{22} $$
+$$ \Rightarrow a_{12} = \left(- \frac{1000031007}{1999999500}\right) \cdot \left(- \frac{1220}{49} \Omega\right) + \left(- \frac{3020}{3999999} \Omega\right) \cdot \left(- \frac{6}{49}\right) $$
+$$ \Rightarrow a_{12} = \frac{1220037828540}{97999975500} \Omega + \frac{18120}{195999951} \Omega $$
+$$ \Rightarrow a_{12} = \frac{239127354611986401540}{19207990396001200500} \Omega + \frac{1775759556060000}{19207990396001200500} \Omega $$
+$$ \Rightarrow a_{12} = \frac{239129130371542461540}{19207990396001200500} \Omega \approx 12,\!449 \Omega $$
+
+$$ a_{21} = a^{'}_{21}a^{''}_{11} + a^{'}_{22}a^{''}_{21} $$
+$$ \Rightarrow a_{21} = \left(- \frac{1000041314}{2000061514000} \text{S}\right) \cdot \left(\frac{284}{245}\right) + \left(- \frac{102}{399999900}\right) \cdot \left(- \frac{1}{980}\text{S}\right) $$
+$$ \Rightarrow a_{21} = - \frac{284011733176}{490015070930000} \text{S} + \frac{102}{391999902000}\text{S} $$
+$$ \Rightarrow a_{21} = - \frac{111332571571842148752000}{192085859783083048860000000} \text{S} + \frac{49981537234860000}{192085859783083048860000000}\text{S} $$
+$$ \Rightarrow a_{21} = - \frac{111332521590304913892000}{192085859783083048860000000} \text{S} \approx - 0,\!579 \text{mS} $$
+
+$$ a_{22} = a^{'}_{21}a^{''}_{12} + a^{'}_{22}a^{''}_{22} $$
+$$ \Rightarrow a_{22} = \left(- \frac{1000041314}{2000061514000} \text{S}\right) \cdot \left(- \frac{1220}{49} \Omega\right) + \left(- \frac{102}{399999900}\right) \cdot \left(- \frac{6}{49}\right) $$
+$$ \Rightarrow a_{22} = \frac{1220050403080}{98003014186000} + \frac{612}{19599995100} $$
+$$ \Rightarrow a_{22} = \frac{23912981922121024908000}{1920858597830830488600000} + \frac{59977844681832000}{1920858597830830488600000} $$
+$$ \Rightarrow a_{22} = \frac{23913041899965706740000}{1920858597830830488600000} \approx 0,\!012 $$
+
+Sumarizando todos os resultados:
+\begin{equation}
+  \label{eq:params_a_calc}
+  \centering
+  \begin{matrix}
+    a_{11} = - \frac{1113312761344700081760}{1920799039600120050000} & \hspace{10pt} a_{12} = \frac{239129130371542461540}{19207990396001200500} \Omega \\\\
+    a_{21} = - \frac{111332521590304913892000}{192085859783083048860000000} \text{S} & \hspace{10pt} a_{22} = \frac{23913041899965706740000}{1920858597830830488600000}
+  \end{matrix}
+\end{equation}
+
+\begin{equation}
+  \label{eq:quad_params_a_calc}
+  \centering
+  \begin{matrix}
+    V_{1_{EQ}} = - \frac{1113312761344700081760}{1920799039600120050000} \cdot V_{2_{EQ}} - \frac{239129130371542461540}{19207990396001200500} \Omega \cdot I_{2_{EQ}} \\\\
+    I_{1_{EQ}} = - \frac{111332521590304913892000}{192085859783083048860000000} \text{S} \cdot V_{2_{EQ}} - \frac{23913041899965706740000}{1920858597830830488600000} \cdot I_{2_{EQ}}
+  \end{matrix}
+\end{equation}
+
+\begin{center}
+  \[ \scalebox{3}{$ * $} \]
+\end{center}
+
+\section{Circuito Equivalente de Norton da Saída}
+
+Partindo do circuito de saída sorteado (figura \ref{ckt:output_1}), sabe-se de cara que, por não haver nenhuma fonte de tensão ou de corrente independente,
+a corrente de Norton é $ I_N = 0 \text{A} $. Para determinar-se o valor de $ R_N $, pode-se colocar uma fonte indepedente na saída e medir a outra grandeza
+sobre essa, visto que $ R_N = \frac{V_F}{I_F} $. Para esse circuito em específico, colocar-se-á uma fonte de corrente de $ I_F = 1\text{A} $ para cima e medir-se-á
+a tensão $ V_F $ sobre ela:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+    \draw (1,0) to[american current source, l_=1<\ampere>] (1,4)
+          (0.5,3) node[left]{$ + $}
+          (0.5,2) node[left]{$ V_F $}
+          (0.5,1) node[left]{$ - $};
+    \draw (1,4) to[R, l_=100<\ohm>] (4,4)
+          [->, shorten >=1mm, shorten <=1mm] (1,4.3) -- (2,4.3) node[midway, above] {I};
+    \draw (4,4) to[american controlled voltage source, l=$ \num{0,5}\text{V} $, -*] (4,0);
+    \draw (7,0) to[american controlled current source, l_=$ \num{0,5}\text{I} $, *-] (7,4);
+    \draw (9.5,4) to[R, l=500<\ohm>, *-*] (9.5,0)
+          (9.5, 4) node[above]{$ \text{V}_\text{A} $}
+          (9.5, 0) node[ground]{};
+    \draw [->, shorten >=1mm, shorten <=1mm] (8,4.3) -- (9,4.3) node[midway, above] {$ \num{0,5}\text{I} $};
+    \draw [->, shorten >=1mm, shorten <=1mm] (9.8,3.8) -- (9.8,2.8) node[midway, right] {$ \text{I}_\text{R} $};
+    \draw [->, shorten >=1mm, shorten <=1mm] (10,4.3) -- (11,4.3) node[midway, above] {$ 10^{-3}\text{V} $};
+    \draw (1,0) -- (13,0)
+          (7,4) -- (13,4)
+          to[american controlled current source, l=$ 10^{-3}\text{V} $] (13,0)
+          (12.25,1) node[left]{$ - $}
+          (12.25,2) node[left]{V}
+          (12.25,3) node[left]{$ + $};
+  \end{circuitikz}
+\end{center}
+
+Nesse caso, com essa fonte de corrente, forçou-se $ I = 1\text{A} $. Por conta disso, do outro lado do circuito, obteve-se que a primeira fonte de corrente controlada
+fornece ou consome $ 0,\!5 \cdot I = 0,\!5 \cdot 1 \text{A} = 0,\!5 \text{A} $.
+
+A partir dessa informação, no nó $ V_A $, obtém-se que a corrente $ I_R $ sobre o resistor de $ 500\Omega $ se dá por:
+$$ 0,\!5 \cdot I = I_R + 10^{-3} \cdot V $$
+$$ \Rightarrow I_R = 0,\!5 \cdot I - 10^{-3} \cdot V $$
+$$ \Rightarrow I_R = 0,\!5\text{A} - 10^{-3} \cdot V $$
+
+Com essa informação, como, em resistores, $ V = R \cdot I $:
+$$ V = I_R \cdot 500 \Omega $$
+$$ \Rightarrow V = (0,\!5\text{A} - 10^{-3} \cdot V) \cdot 500 \Omega $$
+$$ \Rightarrow V = 250\text{V} - 0,\!5 \cdot \text{V} $$
+$$ \Rightarrow 1,\!5 \cdot V = 250\text{V} $$
+$$ \Rightarrow V = \frac{500}{3} \text{V} $$
+
+Com essa informação, basta retornar para o outro lado do circuito e determinar a tensão $ V_F $ através de Lei das Malhas:
+$$ - V_F + I \cdot 100\Omega + 0,\!5 \cdot V = 0 $$
+$$ \Rightarrow V_F = I \cdot 100\Omega + 0,\!5 \cdot V $$
+$$ \Rightarrow V_F = 1\text{A} \cdot 100\Omega + 0,\!5 \cdot \frac{500}{3} \text{V} $$
+$$ \Rightarrow V_F = 100\text{V} + \frac{250}{3} \text{V} $$
+$$ \Rightarrow V_F = \frac{550}{3} \text{V} $$
+
+Logo, a partir dessa tensão, pode-se determinar por fim o valor de $ R_N $:
+$$ R_N = \frac{V_F}{I_F} $$
+$$ \Rightarrow R_N = \frac{\frac{550}{3} \text{V}}{1\text{A}} $$
+$$ \Rightarrow R_N = \frac{550}{3} \Omega = 183,\!\overline{3}\Omega $$
+
+\clearpage
+Ou seja, o circuito equivalente Norton da saída é o seguinte:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8]
+      \draw (0,0) node[ocirc=]{} node[left]{D}
+            (0,4) node[ocirc=]{} node[left]{C};
+      \draw (0.06,4) -- (1,4)
+            (1,4) to[R, l=$ \frac{550}{3}\Omega $] (1,0)
+            (0.06,0) -- (1,0);
+  \end{circuitikz}
+
+  \[ \scalebox{3}{$ * $} \]
+\end{center}
+
+\section{Ganho de Tensão da Saída \texorpdfstring{\texttt{V\textsubscript{2}/V\textsubscript{1}}}{V2/V1}}
+
+Partindo do circuito equivalente de Thevénin da entrada, dos parâmetros $ a $ da interconexão dos quadripolos e
+do circuito equivalente Norton da saída (que é puramente resistivo, sem fonte de corrente), obteve-se o seguinte
+circuito:
+
+\begin{center}
+  \begin{circuitikz}[scale=0.8, smallR/.style={R, bipoles/length=0.8cm}, smallV/.style={american voltage source, bipoles/length=1cm}]
+    \draw (0,1.575) to[smallV, l_=$ \frac{27}{2}\text{V} $] (0,0.425)
+          (0,1.575) to[smallR, l=$ \frac{95}{22}\Omega $] (2,1.575);
+    \draw (4,1) node[fourport, label={[anchor=center]:Q}](Q){}
+          (0,0.425) -- (Q.port1)
+          (2,1.575) -- (Q.port4)
+          (2,0.425) node[above]{$ - $}
+          (2,1) node[left]{$ \text{V}_{1_\text{EQ}} $}
+          (2,1.575) node[below]{$ + $}
+          [->, shorten >=1mm, shorten <=1mm] (2,1.875) -- (2.8,1.875) node[midway, above] {$ \text{I}_{1_\text{EQ}} $};
+    \draw (8,0.425) -- (Q.port2)
+          (8,1.575) -- (Q.port3)
+          (6,0.425) node[above]{$ - $}
+          (6,1) node[right]{$ \text{V}_{2_\text{EQ}} $}
+          (6,1.575) node[below]{$ + $}
+          [->, shorten >=1mm, shorten <=1mm] (6,1.875) -- (5.2,1.875) node[midway, above] {$ \text{I}_{2_\text{EQ}} $};
+    \draw (8,0.425) to[smallR, l_=$ \frac{550}{3}\Omega $] (8,1.575);
+  \end{circuitikz}
+\end{center}
+
+Nesse circuito, os parâmetros $ a $ do quadripolo \texttt{Q} são os descritos pela equação \ref{eq:params_a_calc}. Assim, a partir da 
+relação encontrada em aula entre $ \frac{V_2}{V_1} $ para parâmetros $ a $ nesse mesmo tipo de circuito, determinar-se-á esse ganho a seguir:
+$$ \frac{V_2}{V_1} = \frac{Z_L}{a_{11}Z_L + a_{12}} $$
+
+Nesse circuito em específico:
+$$ Z_L = \frac{550}{3}\Omega $$
+$$ a_{11} = - \frac{1113312761344700081760}{1920799039600120050000} $$
+$$ a_{12} = \frac{239129130371542461540}{19207990396001200500} \Omega $$
+
+Portanto:
+$$ \frac{V_2}{V_1} = \frac{\frac{550}{3}\Omega}{- \frac{1113312761344700081760}{1920799039600120050000} \cdot \frac{550}{3}\Omega + \frac{239129130371542461540}{19207990396001200500} \Omega} $$
+$$ \Rightarrow \frac{V_2}{V_1} = \frac{\frac{550}{3}\Omega}{- \frac{1113312761344700081760}{1920799039600120050000} \cdot \frac{550}{3}\Omega + \frac{239129130371542461540}{19207990396001200500} \cdot \frac{300}{300} \Omega} $$
+$$ \Rightarrow \frac{V_2}{V_1} = \frac{550}{- \frac{1113312761344700081760}{1920799039600120050000} \cdot 550 + \frac{239129130371542461540}{1920799039600120050000} \cdot 300} $$
+$$ \Rightarrow \frac{V_2}{V_1} = \frac{550 \cdot 1920799039600120050000}{- (1113312761344700081760 \cdot 550) + (239129130371542461540 \cdot 300)} $$
+$$ \Rightarrow \frac{V_2}{V_1} = \frac{1056439471780066027500000}{- 612322018739585044968000 + 71738739111462738462000} $$
+$$ \Rightarrow \frac{V_2}{V_1} = - \frac{1056439471780066027500000}{540583279628122306506000} \approx - 1,\!954 $$
+
+\begin{center}
+  \[ \scalebox{3}{$ * $} \]
+\end{center}
+
+\end{document}
