@@ -108,6 +108,9 @@ sorteáveis, com todas as saídas sorteáveis. Abaixo são apresentados os circu
     \caption{\label{ckt:1} Circuito do Exercício 8.33}
 \end{figure}
 
+Nesse primeiro circuito, chamar-se-á de $ u_1 = 3\text{A} $ e $ u_2 = 4u(t)\text{A} $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
+Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
+
 \begin{figure}[h!]
     \centering
     \begin{circuitikz}[scale=0.8]
@@ -133,6 +136,35 @@ sorteáveis, com todas as saídas sorteáveis. Abaixo são apresentados os circu
     \end{circuitikz}
     \caption{\label{ckt:2} Circuito do Exercício 8.38.1}
 \end{figure}
+
+No segundo circuito, chamar-se-á de $ u_1 = 80\text{V} $ e $ u_2 = 10\text{A} $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
+Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
+
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}[scale=0.8]
+        \draw (0,0) to[C, l=$ \frac{1}{3}\text{F} $] (0,6);
+        \draw (0.5,2) node[right]{$ - $}
+              (0.5,3) node[right]{$ \text{V}_\text{C} $}
+              (0.5,4) node[right]{$ + $};
+        \draw (0,0) -- (3,0)
+              (0,6) -- (3,6);
+        \draw (3,3) to[L, l=$ \frac{3}{4}\text{H} $, *-*] (3,6);
+        \draw [->, shorten >=1mm, shorten <=1mm] (3.4,5) -- (3.4,4) node[midway, right] {$ \text{I}_\text{L} $};
+        \draw (3,0) to[R, l=5<\ohm>, *-*] (3,3);
+        \draw (3.2,0.5) node[right]{$ - $}
+              (3.2,1.5) node[right]{$ \text{V}_\text{R} $}
+              (3.2,2.5) node[right]{$ + $};
+        \draw (6,6) to[american current source, l_=$ 2u(-t)\text{A} $] (3,6);
+        \draw (6,6) -- (6,0);
+        \draw (3,3) to[R, l=10<\ohm>, *-*] (6,3);
+        \draw (3,0) to[R, l=10<\ohm>] (6,0);
+    \end{circuitikz}
+    \caption{\label{ckt:3} Circuito do Exercício 8.38.2}
+\end{figure}
+
+No terceiro, chamar-se-á de $ u = 2u(-t)\text{A} $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
+Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
 
 \begin{figure}[h!]
     \centering
