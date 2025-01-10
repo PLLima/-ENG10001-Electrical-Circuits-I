@@ -82,7 +82,7 @@
 
 Este trabalho consiste em representar um dado circuito da \href{https://www.ece.ufrgs.br/~fetter/eng10001/listas/circuitos_2a_ordem.pdf}{lista principal de exercícios de circuitos de segunda ordem}
 em espaços de estados. Esse circuito, bem como as saídas dele seriam sorteados de acordo com o número de matrícula. No entanto, para este trabalho, será feita a análise de todos os possíveis circuitos
-sorteáveis, com todas as saídas sorteáveis. Abaixo são apresentados os circuitos com as suas respectivas saídas desejadas:
+sorteáveis, com todas as saídas sorteáveis. Todas as análises considerarão as condições iniciais em $ t_0 = 0^+\text{s} $ Abaixo são apresentados os circuitos com as suas respectivas saídas desejadas:
 
 \begin{figure}[h!]
     \centering
@@ -166,110 +166,30 @@ Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
 No terceiro, chamar-se-á de $ u = 2u(-t)\text{A} $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
 Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
 
-\begin{figure}[h!]
-    \centering
-    \begin{circuitikz}[scale=0.8]
-        \draw (0,0) node[ocirc=]{} node[above]{$ - $}
-              (0,2) node[]{$ \text{V}_1 $}
-              (0,4) node[ocirc=]{} node[below]{$ + $};
-        \draw (0.06,4) to[R, l_=20<\ohm>] (3,4)
-              [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
-        \draw (3,4) to[american controlled voltage source, l=$ \num{1,2} \text{V}_2 $] (3,2);
-        \draw (3,2) -- (9,2);
-        \draw (7,4) to[american controlled current source, l=$ 10 \text{I}_1 $, -*] (7,2)
-              (7,4) -- (11,4);
-        \draw (9,4) to[R, l=100<\ohm>, *-] (9,2);
-        \draw [->, shorten >=1mm, shorten <=1mm] (11,4.3) -- (10,4.3) node[midway, above] {$ \text{I}_2 $};
-        \draw (5,2) to[R, l=20<\ohm>, *-*] (5,0)
-              (0.06,0) -- (11,0);
-        \draw (11,0) node[ocirc=]{} node[above]{$ - $}
-              (11,2) node[]{$ \text{V}_2 $}
-              (11,4) node[ocirc=]{} node[below]{$ + $};
-    \end{circuitikz}
-    \caption{\label{ckt:quad_1_1} Topologia de Quadripolo 2 (\texttt{Q1})}
-\end{figure}
-
-\begin{itemize}
-  \item Segunda Topologia de Quadripolo:
-\end{itemize}
-
-\begin{figure}[h!]
-    \centering
-    \begin{circuitikz}[scale=0.8]
-        \draw (0,0) node[ocirc=]{} node[above]{$ - $}
-              (0,2) node[]{$ \text{V}_1 $}
-              (0,4) node[ocirc=]{} node[below]{$ + $};
-        \draw (0.06,4) to[R, l_=1<\kilo\ohm>] (3,4)
-              [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {$ \text{I}_1 $};
-        \draw (3,4) to[R, l=100<\kilo\ohm>, *-*] (3,0)
-              (2.8,3) node[left]{$ - $}
-              (2.8,2) node[left]{$ \text{V}_\text{x} $}
-              (2.8,1) node[left]{$ + $};
-        \draw (3,4) to[R, l_=2<\kilo\ohm>] (6,4)
-              (6,4) -- (11,4);
-        \draw (6,4) to[R, l=50<\ohm>, *-] (6,2)
-              to[american controlled voltage source, l=$ 10^5 \text{V}_\text{x} $, -*] (6,0);
-        \draw (9,4) to[R, l=5<\kilo\ohm>, *-*] (9,0);
-        \draw [->, shorten >=1mm, shorten <=1mm] (11,4.3) -- (10,4.3) node[midway, above] {$ \text{I}_2 $};
-        \draw (0.06,0) -- (11,0)
-              (11,0) node[ocirc=]{} node[above]{$ - $}
-              (11,2) node[]{$ \text{V}_2 $}
-              (11,4) node[ocirc=]{} node[below]{$ + $};
-    \end{circuitikz}
-    \caption{\label{ckt:quad_2_1} Topologia de Quadripolo 3 (\texttt{Q2})}
-\end{figure}
-
 \clearpage
-\begin{itemize}
-  \item Associação dos Quadripolos:
-\end{itemize}
-
 \begin{figure}[h!]
     \centering
     \begin{circuitikz}[scale=0.8]
-        \draw (2,1) node[fourport, label={[anchor=center]:Q2}](Q2){}
-              (0.06,0.425) -- (Q2.port1)
-              (0.06,1.575) -- (Q2.port4)
-              (0,0.425) node[ocirc=]{} node[above]{$ - $}
-              (0,1) node[left]{$ \text{V}_{1_\text{EQ}} $}
-              (0,1.575) node[ocirc=]{} node[below]{$ + $}
-              [->, shorten >=1mm, shorten <=1mm] (0,1.875) -- (0.8,1.875) node[midway, above] {$ \text{I}_{1_\text{EQ}} $};
-        \draw (6,1) node[fourport, label={[anchor=center]:Q1}](Q1){}
-        (8.15,0.425) -- (Q1.port2)
-        (8.15,1.575) -- (Q1.port3)
-        (8.15,0.425) node[ocirc=]{} node[above]{$ - $}
-        (8.15,1) node[right]{$ \text{V}_{2_\text{EQ}} $}
-        (8.15,1.575) node[ocirc=]{} node[below]{$ + $}
-        [->, shorten >=1mm, shorten <=1mm] (8.15,1.875) -- (7.15,1.875) node[midway, above] {$ \text{I}_{2_\text{EQ}} $};
-      \draw (Q2.port2) -- (Q1.port1)
-            (Q2.port3) -- (Q1.port4);
+        \draw (0,3) to[american voltage source, l_=$ 60u(t)\text{V} $] (0,0);
+        \draw (0,3) to[R, l=30<\ohm>] (3,3);
+        \draw (2.5,2.8) node[below]{$ - $}
+              (1.5,2.8) node[below]{$ \text{V}_\text{R} $}
+              (0.5,2.8) node[below]{$ + $};
+        \draw (0,0) -- (9,0);
+        \draw (3,0) to[R, l=20<\ohm>, *-*] (3,3);
+        \draw (3,3) to[C, l=$\num{0,5}\text{F}$] (6,3);
+        \draw (5.2,2.5) node[below]{$ - $}
+              (4.5,2.5) node[below]{$ \text{V}_\text{C} $}
+              (3.8,2.5) node[below]{$ + $};
+        \draw (6,3) to[L, l=$\num{0,25}\text{H}$] (9,3);
+        \draw [->, shorten >=1mm, shorten <=1mm] (7,2.6) -- (8,2.6) node[midway, below] {$ \text{I}_\text{L} $};
+        \draw (9,3) to[american voltage source, l=$ 30u(t)\text{V} $] (9,0);
     \end{circuitikz}
-    \caption{\label{ckt:quad_assoc} Associação dos Quadripolos \texttt{Q1} e \texttt{Q2}}
+    \caption{\label{ckt:4} Circuito do Exercício 8.39}
 \end{figure}
 
-\begin{itemize}
-  \item Circuito de Saída:
-\end{itemize}
-
-\begin{figure}[h!]
-    \centering
-    \begin{circuitikz}[scale=0.8]
-        \draw (0,0) node[ocirc=]{} node[left]{D}
-              (0,4) node[ocirc=]{} node[left]{C};
-        \draw (0.06,4) to[R, l_=100<\ohm>] (3,4)
-              [->, shorten >=1mm, shorten <=1mm] (0,4.3) -- (1,4.3) node[midway, above] {I};
-        \draw (3,4) to[american controlled voltage source, l=$ \num{0,5}\text{V} $, -*] (3,0);
-        \draw (6,0) to[american controlled current source, l_=$ \num{0,5}\text{I} $, *-] (6,4);
-        \draw (8.5,4) to[R, l=500<\ohm>, *-*] (8.5,0);
-        \draw (0.06,0) -- (12,0)
-              (6,4) -- (12,4)
-              to[american controlled current source, l=$ 10^{-3}\text{V} $] (12,0)
-              (11.25,1) node[left]{$ - $}
-              (11.25,2) node[left]{V}
-              (11.25,3) node[left]{$ + $};
-    \end{circuitikz}
-    \caption{\label{ckt:output_1} Circuito de Saída 1}
-\end{figure}
+Para finalizar, no último circuito, $ u_1 = 60u(t)\text{V} $ e $ u_2 = 30u(t)\text{V} $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
+Ademais, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
 
 \section{Circuito Equivalente de Thevénin da Entrada}
 
