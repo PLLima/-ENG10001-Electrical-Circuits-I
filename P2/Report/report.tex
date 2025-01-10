@@ -78,43 +78,34 @@
         \clearpage
         \addtocontents{toc}{\protect\thispagestyle{empty}}
 
-\section{Circuitos Sorteados}
+\section{Enunciado e Circuitos}
 
-Primeiramente, com o meu número de matrícula \textbf{0 0 3 4 1 8 1 0}, observa-se os seguintes dígitos sorteadores:
-
-\begin{itemize}
-  \item $ N_1 = 3$;
-  \item $ N_2 = 4$;
-  \item $ N_3 = 1$;
-  \item $ N_4 = 8$;
-  \item $ N_5 = 1$;
-  \item $ N_6 = 0$.
-\end{itemize}
-
-A partir deles, sabe-se que os circuito a serem analisados são os seguintes:
-
-\begin{itemize}
-  \item Circuito de Entrada:
-\end{itemize}
+Este trabalho consiste em representar um dado circuito da \href{https://www.ece.ufrgs.br/~fetter/eng10001/listas/circuitos_2a_ordem.pdf}{lista principal de exercícios de circuitos de segunda ordem}
+em espaços de estados. Esse circuito, bem como as saídas dele seriam sorteados de acordo com o número de matrícula. No entanto, para este trabalho, será feita a análise de todos os possíveis circuitos
+sorteáveis, com todas as saídas sorteáveis. Abaixo são apresentados os circuitos com as suas respectivas saídas desejadas:
 
 \begin{figure}[h!]
     \centering
     \begin{circuitikz}[scale=0.8]
-        \draw
-        (3,3) to[R, l=4<\ohm>] (0,3)
-        to[american voltage source, l=12<\volt>] (0,0)
-        to[R, l_=16<\ohm>] (3,0)
-        to[R, l_=10<\ohm>, *-*] (3,3)
-        to[R, l_=20<\ohm>] (6,3)
-        (3,0) to[R, l_=5<\ohm>] (6,0)
-        (6,0) to[american current source, l_=3<\ampere>, *-*] (6,3)
-        (6,3) -- (8,3) (6,0) -- (8,0)
-        (8,3) to[R, l=5<\ohm>, *-*] (8,0)
-        (8,3) -- (10,3) node[ocirc=](A){} node[right]{A}
-        (8,0) -- (10,0) node[ocirc](B){} node[right]{B}
-
-    ; \end{circuitikz}
-    \caption{\label{ckt:input_1} Circuito de Entrada 2}
+        \draw (0,0) to[american current source, l=3<\ampere>] (0,3);
+        \draw (0,3) -- (3,3)
+              (0,0) -- (12,0);
+        \draw (3,0) to[R, l=10<\ohm>, *-*] (3,3);
+        \draw (3,3) to[ospst, l={$ t = 0\text{s} $}, *-*] (6,3);
+        \draw (6,0) to[C, l=4<\farad>, *-*] (6,3);
+        \draw (6.5,0.75) node[right]{$ - $}
+              (6.5,1.5) node[right]{$ \text{V}_\text{C} $}
+              (6.5,2.25) node[right]{$ + $};
+        \draw (6,3) to[L, l=1<\henry>, *-*] (9,3);
+        \draw [->, shorten >=1mm, shorten <=1mm] (8,2.7) -- (7,2.7) node[midway, below] {$ \text{I}_\text{L} $};
+        \draw (9,0) to[R, l=5<\ohm>, *-*] (9,3);
+        \draw (9.2,0.5) node[right]{$ - $}
+              (9.2,1.5) node[right]{$ \text{V}_\text{R} $}
+              (9.2,2.5) node[right]{$ + $};
+        \draw (9,3) -- (12,3);
+        \draw (12,0) to[american current source, l_=$ 4u(t)\text{A} $] (12,3);
+    \end{circuitikz}
+    \caption{\label{ckt:1} Circuito do Exercício 8.33}
 \end{figure}
 
 \begin{itemize}
