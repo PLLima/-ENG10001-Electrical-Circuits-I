@@ -346,7 +346,7 @@ Para começar, analisar-se-á o comportamento genérico do circuito em $ t \ge t
 \begin{figure}[h!]
     \centering
     \begin{circuitikz}[scale=0.8]
-        \draw (0,3) to[american voltage source, l_=80<\volt>] (0,0);
+        \draw (0,3) to[american voltage source, l_=u] (0,0);
         \draw (0,3) to[R, l=10<\ohm>] (3,3);
         \draw (2.5,2.8) node[below]{$ - $}
               (1.5,2.8) node[below]{$ \text{V}_\text{R} $}
@@ -363,6 +363,119 @@ Para começar, analisar-se-á o comportamento genérico do circuito em $ t \ge t
     \end{circuitikz}
     \caption{\label{ckt:2_generic} Circuito Genérico do Exercício 8.38.1}
 \end{figure}
+
+Pelas definições iniciais de saídas, já concluí-se que:
+
+\vspace*{-1.5\baselineskip}
+\begin{center}
+    \begin{align}
+        \label{eq:8.38.1_y1}
+        \Rightarrow y_1 &= x_1 \\
+        \label{eq:8.38.1_y2}
+        \Rightarrow y_2 &= x_2
+    \end{align}
+\end{center}
+
+Para a terceira saída, pode-se analisar a primeira malha da esquerda:
+$$ -u + V_R + V_C = 0 $$
+$$ \Rightarrow V_R = u - V_C $$
+\begin{equation}
+      \label{eq:8.38.1_y3}
+      \centering
+      \Rightarrow y_3 = -x_1 + u
+\end{equation}
+
+Agora, de forma similar ao exercício anterior,
+$$ V_L = L \cdot \dot{I_L} $$
+$$ \Rightarrow \dot{I_L} = \frac{V_L}{L} $$
+$$ \Rightarrow \dot{x_2} = 62,\!5V_L $$
+$$ I_C = C \cdot \dot{V_C} $$
+$$ \Rightarrow \dot{V_C} = \frac{I_C}{C} $$
+$$ \Rightarrow \dot{x_1} = 4000I_C $$
+
+Com isso em mente, é aparente que o capacitor e o indutor estão em paralelo. Portanto:
+$$ V_L = V_C $$
+$$ \Rightarrow V_L = x_1 $$
+\begin{equation}
+      \label{eq:8.38.1_x2'}
+      \centering
+      \Rightarrow \dot{x_2} = 62,\!5x_1
+\end{equation}
+
+Agora, para $ I_C $, analisar-se-á o nó superior do circuito:
+$$ I_R = I_{R_{10\Omega}} + I_C + I_L $$
+$$ \Rightarrow I_C = I_R - I_{R_{10\Omega}} - I_L $$
+$$ \Rightarrow I_C = \frac{-V_C + u}{10\Omega} - \frac{V_C}{10\Omega} - I_L $$
+$$ \Rightarrow I_C = -\frac{x_1}{5} - x_2 +\frac{u}{10} $$
+$$ \Rightarrow \dot{x_1} = 4000\left(-\frac{x_1}{5} - x_2 +\frac{u}{10}\right) $$
+\begin{equation}
+      \label{eq:8.38.1_x1'}
+      \centering
+      \Rightarrow \dot{x_1} = -800x_1 - 4000x_2 + 400u
+\end{equation}
+
+Com essa análise, partir-se-á para o estudo das condições iniciais de $ x_1 $ e $ x_2 $. Em $ t = 0^- $:
+\begin{figure}[h!]
+      \centering
+      \begin{circuitikz}[scale=0.8]
+          \draw (0,3) to[american voltage source, l_=80<\volt>] (0,0);
+          \draw (0,3) to[R, l=10<\ohm>] (3,3);
+          \draw (0,0) -- (6,0);
+          \draw (3,0) to[R, l=10<\ohm>, *-*] (3,3);
+          \draw (6,0) to[C, l=250<\micro\farad>] (6,3);
+          \draw (6.5,0.75) node[right]{$ - $}
+                (6.5,1.5) node[right]{$ \text{V}_\text{C}(0^-) $}
+                (6.5,2.25) node[right]{$ + $};
+          \draw (3,3) -- (6,3);
+          \draw (10,0) to[L, l=16<\milli\henry>] (10,3);
+          \draw [->, shorten >=1mm, shorten <=1mm] (10.4,2) -- (10.4,1) node[midway, right] {$ \text{I}_\text{L}(0^-) $};
+          \draw (13,0) to[R, l_=1<\kilo\ohm>, *-*] (13,3);
+          \draw (10,3) -- (16,3)
+                (10,0) -- (16,0);
+          \draw (16,0) to[american current source, l_=10<\ampere>] (16,3);
+      \end{circuitikz}
+      \caption{\label{ckt:2_0-} Circuito do Exercício 8.38.1 antes de $ t_0 $}
+\end{figure}
+
+Considerando essa situação anterior às chaves, observa-se que, considerando o capacitor em aberto por estar carregado,
+$$ V_C(0^-) = 80\text{V} \cdot \frac{10\Omega}{10\Omega + 10\Omega} $$
+$$ \Rightarrow V_C(0^-) = 80\text{V} \cdot \frac{1}{2} $$
+$$ \Rightarrow V_C(0^-) = 40\text{V} $$
+
+Para o indutor, considerando-o carregado como um curto-circuito, toda a corrente da fonte de corrente fluirá por ele:
+$$ I_L(0^-) = 10\text{A} $$
+
+Como não fontes impulsivas e, ao unir esses circuitos no circuito genérico \ref{ckt:2_generic}, não há conflitos em nenhuma LKT,
+nem LKC, conclui-se que:
+$$ V_C(0^+) = V_C(0^-) $$
+$$ I_L(0^+) = I_L(0^-) $$
+
+\vspace*{-1.5\baselineskip}
+\begin{center}
+    \begin{align}
+        \label{eq:8.38.1_x1_0}
+        \Rightarrow x_1(t_0) &= 40 \\
+        \label{eq:8.38.1_x2_0}
+        \Rightarrow x_2(t_0) &= 10
+    \end{align}
+\end{center}
+
+Unindo os resultados das equações \ref{eq:8.38.1_y1} à \ref{eq:8.38.1_x2_0}, obtem-se:
+\begin{equation}
+      \label{eq:8.38.1_sol}
+      \centering
+      \begin{split}
+          \begin{bmatrix} \dot{x_1} \\ \dot{x_2} \end{bmatrix} &= \begin{bmatrix} -800 & -4000 \\ 62,\!5 & 0 \end{bmatrix}
+          \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 400 \\ 0 \end{bmatrix} \begin{bmatrix} u \end{bmatrix} \\
+          \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ -1 & 0 \end{bmatrix}
+          \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \begin{bmatrix} u \end{bmatrix} \\
+          \begin{bmatrix} x_1(t_0) \\ x_2(t_0) \end{bmatrix} &= \begin{bmatrix} 40 \\ 10 \end{bmatrix}
+      \end{split}
+  \end{equation}
+
+\begin{center}
+      \[ \scalebox{3}{$ * $} \]
+\end{center}
 
 \subsection{Circuito do Exercício 8.38.2}
 \subsection{Circuito do Exercício 8.39}
