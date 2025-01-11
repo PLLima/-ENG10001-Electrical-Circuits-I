@@ -163,8 +163,8 @@ Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
     \caption{\label{ckt:3} Circuito do Exercício 8.38.2}
 \end{figure}
 
-No terceiro, chamar-se-á de $ u = 2u(-t)\text{A} $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
-Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
+No terceiro, a partir de $ t = t_0 $, não há mais fontes de alimentação. Por conta disso, não há entradas para a representação
+em espaço de estados. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $. Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
 
 \clearpage
 \begin{figure}[h!]
@@ -370,9 +370,9 @@ Pelas definições iniciais de saídas, já concluí-se que:
 \begin{center}
     \begin{align}
         \label{eq:8.38.1_y1}
-        \Rightarrow y_1 &= x_1 \\
+        y_1 &= x_1 \\
         \label{eq:8.38.1_y2}
-        \Rightarrow y_2 &= x_2
+        y_2 &= x_2
     \end{align}
 \end{center}
 
@@ -471,13 +471,179 @@ Unindo os resultados das equações \ref{eq:8.38.1_y1} à \ref{eq:8.38.1_x2_0}, 
           \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ 1 \end{bmatrix} \begin{bmatrix} u \end{bmatrix} \\
           \begin{bmatrix} x_1(t_0) \\ x_2(t_0) \end{bmatrix} &= \begin{bmatrix} 40 \\ 10 \end{bmatrix}
       \end{split}
-  \end{equation}
+\end{equation}
 
 \begin{center}
       \[ \scalebox{3}{$ * $} \]
 \end{center}
 
 \subsection{Circuito do Exercício 8.38.2}
+Novamente, começar-se-á pelo comportamento genérico em $ t \ge t_0 $. A partir desse ponto, já não há mais fontes de alimentação, portanto,
+as matrizes de entrada são todas nulas e não serão explicitamente representadas aqui:
+\begin{figure}[h!]
+      \centering
+      \begin{circuitikz}[scale=0.8]
+          \draw (0,0) to[C, l=$ \frac{1}{3}\text{F} $] (0,6);
+          \draw (0.5,2) node[right]{$ - $}
+                (0.5,3) node[right]{$ \text{V}_\text{C} $}
+                (0.5,4) node[right]{$ + $};
+          \draw (0,0) -- (3,0)
+                (0,6) -- (3,6);
+          \draw (3,3) to[L, l=$ \frac{3}{4}\text{H} $] (3,6);
+          \draw [->, shorten >=1mm, shorten <=1mm] (3.4,5) -- (3.4,4) node[midway, right] {$ \text{I}_\text{L} $};
+          \draw (3,0) to[R, l=5<\ohm>, *-*] (3,3);
+          \draw (3.2,0.5) node[right]{$ - $}
+                (3.2,1.5) node[right]{$ \text{V}_\text{R} $}
+                (3.2,2.5) node[right]{$ + $};
+          \draw (6,3) -- (6,0);
+          \draw (3,3) to[R, l=10<\ohm>] (6,3);
+          \draw (3,0) to[R, l=10<\ohm>] (6,0);
+      \end{circuitikz}
+      \caption{\label{ckt:3_generic} Circuito Genérico do Exercício 8.38.2}
+  \end{figure}
+
+De praxe, pela definição das saídas,
+
+\vspace*{-1.5\baselineskip}
+\begin{center}
+    \begin{align}
+        \label{eq:8.38.2_y1}
+        y_1 &= x_1 \\
+        \label{eq:8.38.2_y2}
+        y_2 &= x_2
+    \end{align}
+\end{center}
+
+Para as outras grandezas, vale realizar uma breve simplificada no circuito unindo os dois resistores da direita:
+\begin{figure}[h!]
+      \centering
+      \begin{circuitikz}[scale=0.8]
+          \draw (0,0) to[C, l=$ \frac{1}{3}\text{F} $] (0,6);
+          \draw (0.5,2) node[right]{$ - $}
+                (0.5,3) node[right]{$ \text{V}_\text{C} $}
+                (0.5,4) node[right]{$ + $};
+          \draw (0,0) -- (3,0)
+                (0,6) -- (3,6);
+          \draw (3,3) to[L, l=$ \frac{3}{4}\text{H} $] (3,6);
+          \draw [->, shorten >=1mm, shorten <=1mm] (3.4,5) -- (3.4,4) node[midway, right] {$ \text{I}_\text{L} $};
+          \draw (3,0) to[R, l=5<\ohm>, *-*] (3,3);
+          \draw (3.2,0.5) node[right]{$ - $}
+                (3.2,1.5) node[right]{$ \text{V}_\text{R} $}
+                (3.2,2.5) node[right]{$ + $};
+          \draw (3,0) -- (6,0)
+                (3,3) -- (6,3);
+          \draw (6,0) to[R, l=20<\ohm>] (6,3);
+      \end{circuitikz}
+      \caption{\label{ckt:3_generic_simp} Circuito Genérico Simplificado do Exercício 8.38.2}
+  \end{figure}
+
+Pela figura acima, é fácil enxergar que há um divisor de corrente logo acima da grandeza de saída de interesse:
+$$ I_R = \frac{20\Omega}{5\Omega + 20\Omega}\cdot I_L $$
+$$ \Rightarrow I_R = \frac{4}{5}I_L $$
+$$ \Rightarrow V_R = 5\Omega \cdot \frac{4}{5}I_L $$
+$$ \Rightarrow V_R = 4I_L $$
+\begin{equation}
+      \label{eq:8.38.2_y3}
+      \centering
+      \Rightarrow y_3 = 4x_2
+\end{equation}
+
+Para a variação nos estados:
+$$ V_L = L \cdot \dot{I_L} $$
+$$ \Rightarrow \dot{I_L} = \frac{V_L}{L} $$
+$$ \Rightarrow \dot{x_2} = \frac{4}{3}V_L $$
+$$ I_C = C \cdot \dot{V_C} $$
+$$ \Rightarrow \dot{V_C} = \frac{I_C}{C} $$
+$$ \Rightarrow \dot{x_1} = 3I_C $$
+
+Como o capacitor e o indutor estão em anti-série, sabe-se que:
+$$ I_C = -I_L $$
+$$ \Rightarrow I_C = -x_2 $$
+\begin{equation}
+    \label{eq:8.38.2_x1'}
+    \centering
+    \Rightarrow \dot{x_1} = -3x_2
+\end{equation}
+
+Para a tensão sobre o indutor, basta construir uma malha:
+$$ -V_C + V_L + V_R = 0 $$
+$$ \Rightarrow V_L = V_C - V_R $$
+$$ \Rightarrow V_L = V_C - 4\Omega\cdot I_L $$
+$$ \Rightarrow V_L = x_1 - 4x_2 $$
+$$ \Rightarrow \dot{x_2} = \frac{4}{3} \cdot(x_1 - 4x_2) $$
+\begin{equation}
+      \label{eq:8.38.2_x2'}
+      \centering
+      \Rightarrow \dot{x_2} = \frac{4}{3}x_1 -\frac{16}{3}x_2
+\end{equation}
+
+Agora, para as condições iniciais, partindo de $ t = 0^- $:
+\begin{figure}[h!]
+      \centering
+      \begin{circuitikz}[scale=0.8]
+          \draw (0,0) to[C, l=$ \frac{1}{3}\text{F} $] (0,6);
+          \draw (0.5,2) node[right]{$ - $}
+                (0.5,3) node[right]{$ \text{V}_\text{C}(0^-) $}
+                (0.5,4) node[right]{$ + $};
+          \draw (0,0) -- (3,0)
+                (0,6) -- (3,6);
+          \draw (3,3) to[L, l=$ \frac{3}{4}\text{H} $, *-*] (3,6);
+          \draw [->, shorten >=1mm, shorten <=1mm] (3.4,5) -- (3.4,4) node[midway, right] {$ \text{I}_\text{L}(0^-) $};
+          \draw (3,0) to[R, l=5<\ohm>, *-*] (3,3);
+          \draw (6,6) to[american current source, l_=$ 2\text{A} $] (3,6);
+          \draw (6,6) -- (6,0);
+          \draw (3,3) to[R, l=10<\ohm>, *-*] (6,3);
+          \draw (3,0) to[R, l=10<\ohm>] (6,0);
+      \end{circuitikz}
+      \caption{\label{ckt:3_0-} Circuito do Exercício 8.38.2 antes de $ t_0 $}
+\end{figure}
+
+Tratando os componentes que armazenam energia como carregados, o capacitor é um circuito aberto e indutor se comporta como
+um curto-circuito. Logo, como não há outro caminho para a corrente da fonte percorrer,
+$$ I_L(0^-) = 2\text{A} $$
+
+Para determinar a tensão no capacitor, pode-se percorrer a malha esquerda novamente:
+$$ -V_C(0^-) + V_L(0^-) + V_R(0^-) = 0 $$
+$$ \Rightarrow V_C(0^-) = V_R(0^-) $$
+
+Para descobrir $ V_R(0^-) $, pode-se utilizar o divisor de corrente entre os resistores para saber a corrente sobre o componente e
+aplicar a Lei de Ohm:
+$$ I_R(0^-) = \frac{10\Omega}{10\Omega + 5\Omega + 10\Omega}\cdot 2\text{A} $$
+$$ \Rightarrow I_R(0^-) = \frac{4}{5}\text{A} $$
+$$ V_R(0^-) = 5\Omega \cdot \frac{4}{5}\text{A} $$
+$$ \Rightarrow V_R(0^-) = 4\text{V} $$
+
+Portanto,
+$$ V_C(0^-) = 4\text{V} $$
+
+Como não há fontes impulsivas, nem chaves, não há nada que fira a LKC ou a LKT. Então:
+$$ V_C(0^+) = V_C(0^-) $$
+$$ I_L(0^+) = I_L(0^-) $$
+
+Com isso,
+\vspace*{-1.5\baselineskip}
+\begin{center}
+    \begin{align}
+        \label{eq:8.38.2_x1_0}
+        \Rightarrow x_1(t_0) &= 4 \\
+        \label{eq:8.38.2_x2_0}
+        \Rightarrow x_2(t_0) &= 2
+    \end{align}
+\end{center}
+
+Agrupando \ref{eq:8.38.2_y1} à \ref{eq:8.38.2_x2_0}, obtem-se:
+\begin{equation}
+      \label{eq:8.38.2_sol}
+      \centering
+      \begin{split}
+          \begin{bmatrix} \dot{x_1} \\ \dot{x_2} \end{bmatrix} &= \begin{bmatrix} 0 & -3 \\ \frac{4}{3} & -\frac{16}{3} \end{bmatrix}
+          \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \\
+          \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & 4 \end{bmatrix}
+          \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} \\
+          \begin{bmatrix} x_1(t_0) \\ x_2(t_0) \end{bmatrix} &= \begin{bmatrix} 4 \\ 2 \end{bmatrix}
+      \end{split}
+\end{equation}
+
 \subsection{Circuito do Exercício 8.39}
 
 \section{Circuito Equivalente de Thevénin da Entrada}
