@@ -108,7 +108,7 @@ sorteáveis, com todas as saídas sorteáveis. Todas as análises considerarão 
     \caption{\label{ckt:1} Circuito do Exercício 8.33}
 \end{figure}
 
-Nesse primeiro circuito, chamar-se-á de $ u_1 = 3\text{A} $ e $ u_2 = 4u(t)\text{A} $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
+Nesse primeiro circuito, chamar-se-á de $ u = 4u(t)\text{A} $. A fonte mais à esquerda passa a não afetar o circuito em $ t \ge t_0 $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
 Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
 
 \begin{figure}[h!]
@@ -116,6 +116,9 @@ Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
     \begin{circuitikz}[scale=0.8]
         \draw (0,3) to[american voltage source, l_=80<\volt>] (0,0);
         \draw (0,3) to[R, l=10<\ohm>] (3,3);
+        \draw (2.5,2.8) node[below]{$ - $}
+              (1.5,2.8) node[below]{$ \text{V}_\text{R} $}
+              (0.5,2.8) node[below]{$ + $};
         \draw (0,0) -- (15,0);
         \draw (3,0) to[R, l=10<\ohm>, *-*] (3,3);
         \draw (6,0) to[C, l=250<\micro\farad>, *-*] (6,3);
@@ -128,16 +131,13 @@ Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
         \draw [->, shorten >=1mm, shorten <=1mm] (9.4,2) -- (9.4,1) node[midway, right] {$ \text{I}_\text{L} $};
         \draw (9,3) to[ospst, l={$ t = 0\text{s} $}, *-*] (12,3);
         \draw (12,0) to[R, l=1<\kilo\ohm>, *-*] (12,3);
-        \draw (12.2,0.5) node[right]{$ - $}
-              (12.2,1.5) node[right]{$ \text{V}_\text{R} $}
-              (12.2,2.5) node[right]{$ + $};
         \draw (12,3) -- (15,3);
         \draw (15,0) to[american current source, l_=10<\ampere>] (15,3);
     \end{circuitikz}
     \caption{\label{ckt:2} Circuito do Exercício 8.38.1}
 \end{figure}
 
-No segundo circuito, chamar-se-á de $ u_1 = 80\text{V} $ e $ u_2 = 10\text{A} $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
+No segundo circuito, chamar-se-á de $ u = 80\text{V} $. A justificativa é igual àquela do exercício anterior, a fonte da direita não afeta mais o circuito em $ t \ge t_0 $, tempo de interesse. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
 Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
 
 \begin{figure}[h!]
@@ -190,6 +190,182 @@ Por fim, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
 
 Para finalizar, no último circuito, $ u_1 = 60u(t)\text{V} $ e $ u_2 = 30u(t)\text{V} $. Além disso, $ x_1 = V_C $ e $ x_2 = I_L $.
 Ademais, $ y_1 = V_C $, $ y_2 = I_L e $ $ y_3 = V_R $.
+
+\section{Representação dos Circuitos em Espaços de Estados}
+\subsection{Circuito do Exercício 8.33}
+Para analisar qualquer circuito, é mais fácil transformar as suas entradas em componentes genéricos já definidos anteriormente, tratando
+as chaves da forma que ficarão após $ t = t_0 $. Com isso:
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}[scale=0.8]
+        \draw (0,0) -- (6,0);
+        \draw (0,0) to[C, l=4<\farad>] (0,3);
+        \draw (0.5,0.75) node[right]{$ - $}
+              (0.5,1.5) node[right]{$ \text{V}_\text{C} $}
+              (0.5,2.25) node[right]{$ + $};
+        \draw (0,3) to[L, l=1<\henry>] (3,3);
+        \draw [->, shorten >=1mm, shorten <=1mm] (2,2.6) -- (1,2.6) node[midway, below] {$ \text{I}_\text{L} $};
+        \draw (3,0) to[R, l=5<\ohm>, *-*] (3,3);
+        \draw (3.2,0.5) node[right]{$ - $}
+              (3.2,1.5) node[right]{$ \text{V}_\text{R} $}
+              (3.2,2.5) node[right]{$ + $};
+        \draw (3,3) -- (6,3);
+        \draw (6,0) to[american current source, l_=u] (6,3);
+    \end{circuitikz}
+    \caption{\label{ckt:1_generic} Circuito Genérico do Exercício 8.33}
+\end{figure}
+
+Com o circuito bem simplificado acima, pode-se aplicar nós para começar a sua análise:
+$$ u = I_R + I_L $$
+$$ \Rightarrow I_R = u - I_L $$
+$$ \Rightarrow I_R = u - x_2 $$
+
+Como $ V_R = 5\Omega \cdot I_R $,
+$$ V_R = 5\Omega \cdot (u - x_2) $$
+$$ \Rightarrow V_R = 5\Omega \cdot u - 5\Omega \cdot x_2 $$
+\begin{equation}
+    \label{eq:8.33_y3}
+    \centering
+    \Rightarrow y_3 = - 5x_2 + 5u
+\end{equation}
+
+Além disso, as outras saídas são as próprias variáveis de estado:
+\vspace*{-1.5\baselineskip}
+\begin{center}
+    \begin{align}
+        \label{eq:8.33_y1}
+        \Rightarrow y_1 &= x_1 \\
+        \label{eq:8.33_y2}
+        \Rightarrow y_2 &= x_2
+    \end{align}
+\end{center}
+
+Agora, para analisar as derivadas dos estados, vale lembrar que:
+$$ V_L = L \cdot \dot{I_L} $$
+$$ \Rightarrow \dot{I_L} = \frac{V_L}{L} $$
+$$ \Rightarrow \dot{x_2} = V_L $$
+$$ I_C = C \cdot \dot{V_C} $$
+$$ \Rightarrow \dot{V_C} = \frac{I_C}{C} $$
+$$ \Rightarrow \dot{x_1} = \frac{I_C}{4} $$
+
+Porém, como o capacitor e o indutor estão em série, a corrente sobre ambos é igual. Ou seja,
+$$ I_C = I_L $$
+$$ \Rightarrow I_C = x_2 $$
+\begin{equation}
+    \label{eq:8.33_x1'}
+    \centering
+    \Rightarrow \dot{x_1} = \frac{x_2}{4}
+\end{equation}
+
+Para descobrir a última derivada faltante, basta construir uma malha do lado esquerdo do circuito:
+$$ -V_C -V_L + V_R = 0 $$
+$$ \Rightarrow V_L = V_R - V_C $$
+
+Como $ V_R = y_3 $ e já foi calculado antes em \ref{eq:8.33_y3} e $ V_C = x_1 $,
+$$ \Rightarrow V_L = -5x_2 + 5u - x_1 $$
+$$ \Rightarrow V_L = -x_1 -5x_2 + 5u $$
+\begin{equation}
+    \label{eq:8.33_x2'}
+    \centering
+    \Rightarrow \dot{x_2} = -x_1 -5x_2 + 5u
+\end{equation}
+
+Agora, sabendo o comportamento do circuito a partir do tempo de interesse, calcular-se-á os valores iniciais
+dos estados para utilizar mais tarde na ferramenta matemática. Para tanto, o circuito antes da chave se manifestar,
+em $ t < t_0 $, se comportava da seguinte forma:
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}[scale=0.8]
+        \draw (0,0) to[american current source, l=3<\ampere>] (0,3);
+        \draw (0,3) -- (6,3)
+              (0,0) -- (9,0);
+        \draw (3,0) to[R, l=10<\ohm>, *-*] (3,3);
+        \draw (6,0) to[C, l=4<\farad>, *-*] (6,3);
+        \draw (6.5,0.75) node[right]{$ - $}
+              (6.5,1.5) node[right]{$ \text{V}_\text{C}(0^-) $}
+              (6.5,2.25) node[right]{$ + $};
+        \draw (6,3) to[L, l=1<\henry>] (9,3);
+        \draw [->, shorten >=1mm, shorten <=1mm] (8.5,2.6) -- (7.5,2.6) node[midway, below] {$ \text{I}_\text{L}(0^-) $};
+        \draw (9,0) to[R, l_=5<\ohm>] (9,3);
+    \end{circuitikz}
+    \caption{\label{ckt:1_0-} Circuito do Exercício 8.33 antes de $ t_0 $}
+\end{figure}
+
+Nesse instante, o capacitor pode ser considerado como carregado e em circuito aberto e o indutor como carregado em forma de curto-circuito,
+ambos sem ferirem nenhuma LKT, nem LKC. Portanto, a corrente que passa pelo resistor de $ 5\Omega $ é calculável pelo simples divisor de corrente:
+$$ I_{R_{5\Omega}} = 3\text{A} \cdot \frac{10\Omega}{10\Omega + 5\Omega} $$
+$$ \Rightarrow I_{R_{5\Omega}} = 3\text{A} \cdot \frac{2}{3} $$
+$$ \Rightarrow I_{R_{5\Omega}} = 2\text{A} $$
+
+Em decorrência disso, o resto da corrente passa pelo outro resistor:
+$$ \Rightarrow I_{R_{10\Omega}} = 1\text{A} $$
+
+Agora, como é observado na figura \ref{ckt:1_0-},
+$$ I_L(0^-) = -I_{R_{5\Omega}} $$
+$$ I_L(0^-) = -2\text{A} $$
+
+Como o resistor de $ 10\Omega $ está em paralelo com o capacitor, sabe-se que as suas tensões são iguais. Desta forma,
+$$ V_C(0^-) = V_{R_{10\Omega}} $$
+$$ \Rightarrow V_C(0^-) = 1\text{A} \cdot 10\Omega $$
+$$ \Rightarrow V_C(0^-) = 10\text{V} $$
+
+Como, no instante em que a chave é aberta, $ t = 0\text{s} $, e logo após, em $ t = 0^+\text{s} $, não há nenhuma fonte impulsiva,
+nem alguma alteração que torne incoerente as LKT e LKC com essas condições calculadas acima, conclui-se que:
+$$ V_C(0^+) = V_C(0^-) $$
+$$ I_L(0^+) = I_L(0^-) $$
+
+\vspace*{-1.5\baselineskip}
+\begin{center}
+    \begin{align}
+        \label{eq:8.33_x1_0}
+        \Rightarrow x_1(t_0) &= 10 \\
+        \label{eq:8.33_x2_0}
+        \Rightarrow x_2(t_0) &= -2
+    \end{align}
+\end{center}
+
+Agrupando as equações \ref{eq:8.33_y3} à \ref{eq:8.33_x2_0}, obtém-se:
+\begin{equation}
+    \label{eq:8.33_sol}
+    \centering
+    \begin{split}
+        \begin{bmatrix} \dot{x_1} \\ \dot{x_2} \end{bmatrix} &= \begin{bmatrix} 0 & \frac{1}{4} \\ -1 & -5 \end{bmatrix}
+        \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 0 \\ 5 \end{bmatrix} \begin{bmatrix} u \end{bmatrix} \\
+        \begin{bmatrix} y_1 \\ y_2 \\ y_3 \end{bmatrix} &= \begin{bmatrix} 1 & 0 \\ 0 & 1 \\ 0 & -5 \end{bmatrix}
+        \begin{bmatrix} x_1 \\ x_2 \end{bmatrix} + \begin{bmatrix} 0 \\ 0 \\ 5 \end{bmatrix} \begin{bmatrix} u \end{bmatrix} \\
+        \begin{bmatrix} x_1(t_0) \\ x_2(t_0) \end{bmatrix} &= \begin{bmatrix} 10 \\ -2 \end{bmatrix}
+    \end{split}
+\end{equation}
+
+\begin{center}
+    \[ \scalebox{3}{$ * $} \]
+  \end{center}
+
+\subsection{Circuito do Exercício 8.38.1}
+Para começar, analisar-se-á o comportamento genérico do circuito em $ t \ge t_0 $:
+\begin{figure}[h!]
+    \centering
+    \begin{circuitikz}[scale=0.8]
+        \draw (0,3) to[american voltage source, l_=80<\volt>] (0,0);
+        \draw (0,3) to[R, l=10<\ohm>] (3,3);
+        \draw (2.5,2.8) node[below]{$ - $}
+              (1.5,2.8) node[below]{$ \text{V}_\text{R} $}
+              (0.5,2.8) node[below]{$ + $};
+        \draw (0,0) -- (9,0);
+        \draw (3,0) to[R, l=10<\ohm>, *-*] (3,3);
+        \draw (6,0) to[C, l=250<\micro\farad>, *-*] (6,3);
+        \draw (6.5,0.75) node[right]{$ - $}
+              (6.5,1.5) node[right]{$ \text{V}_\text{C} $}
+              (6.5,2.25) node[right]{$ + $};
+        \draw (3,3) -- (9,3);
+        \draw (9,0) to[L, l=16<\milli\henry>] (9,3);
+        \draw [->, shorten >=1mm, shorten <=1mm] (9.4,2) -- (9.4,1) node[midway, right] {$ \text{I}_\text{L} $};
+    \end{circuitikz}
+    \caption{\label{ckt:2_generic} Circuito Genérico do Exercício 8.38.1}
+\end{figure}
+
+\subsection{Circuito do Exercício 8.38.2}
+\subsection{Circuito do Exercício 8.39}
 
 \section{Circuito Equivalente de Thevénin da Entrada}
 
