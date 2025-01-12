@@ -17,10 +17,10 @@ rep2 = ss(A, B, C2, D2);
 rep3 = ss(A, B, C3, D3);
 
 % Gerando amostras de tempo adequadas para visualizacao
-tsim = 0:0.001:1;
-t1 = 0:0.001:0.1;
-t2 = 0:0.001:0.1;
-t3 = 0:0.001:0.1;
+tsim = 0:0.0001:0.1;
+t1 = 0:0.0001:0.025;
+t2 = 0:0.0001:0.025;
+t3 = 0:0.0001:0.025;
 
 % Resposta do exercicio
 Il = 8 + exp(-400*tsim).*(2*cos(300*tsim) + 11*sin(300*tsim));
