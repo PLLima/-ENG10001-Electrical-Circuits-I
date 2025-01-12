@@ -770,10 +770,35 @@ Portanto, unindo as afirmações \ref{eq:8.39_y1} à \ref{eq:8.39_x2_0}, obtem-s
 \end{center}
 
 \section{Simulações dos Resultados}
+Como dito pelo enunciado, agora precisa-se simular os resultados gerados pelas matrizes dos exercícios no SIMULINK, do MATLAB. Além disso, como forma de conferir os resultados,
+serão feitos os gráficos das respostas dos exercícios como descrito na \href{https://www.ece.ufrgs.br/~fetter/eng10001/listas/circuitos_2a_ordem.pdf}{própria lista} para garantir que pelo menos uma das grandezas está correta. Esses gráficos das respostas
+serão feitos através da calculadora gráfica \href{https://www.desmos.com/calculator}{Desmos}.
+
 \subsection{Simulação do Exercício 8.33}
+Primeiramente, será feito o gráfico da resposta expressa pelo próprio exercício:
+$$ V_C(t) = \left(20 + 0,\!205e^{-4,95t} - 10,\!205e^{-0,05t}\right)\text{V}, t > 0 $$
+
+No Desmos, essa função gera o seguinte gráfico:
+
+
 \subsection{Simulação do Exercício 8.38.1}
+Começando novamente pela representação gráfica da resposta do próprio exercício:
+$$ I_L(t) = \left\{8 + e^{-400t}\left[2\cos(300t) + 11\sin(300t)\right]\right\}\text{A}, t > 0 $$
+
+O gráfico gerado com essa função no Desmos foi:
+
 \subsection{Simulação do Exercício 8.38.2}
+A resposta dada pelo exercício é:
+$$ I_L(t) = \left(e^{-4,431t} + e^{-0,903t}\right)\text{A}, t > 0 $$
+
+Isso gera o seguinte resultado na calculadora gráfica:
+
 \subsection{Simulação do Exercício 8.39}
+Por fim, o exercício fornece o seguinte comportamento esperado para uma de suas grandezas:
+$$ V_C(t) = \left(-6 -0,\!02e^{-47,83t} + 6,\!02e^{-0,17t}\right)\text{V}, t > 0 $$
+
+Gera-se o seguinte gráfico no Desmos com essa resposta:
+
 \section{Conclusões Finais}
 
 \end{document}
