@@ -29,6 +29,9 @@
 \usepackage[siunitx]{circuitikz}
 \sisetup{output-decimal-marker={,}}
 
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Código}
+
 % Set section numbering from 1.1
 \renewcommand{\thesection}{\arabic{section}.1}
 
@@ -772,32 +775,113 @@ Portanto, unindo as afirmações \ref{eq:8.39_y1} à \ref{eq:8.39_x2_0}, obtem-s
 \section{Simulações dos Resultados}
 Como dito pelo enunciado, agora precisa-se simular os resultados gerados pelas matrizes dos exercícios no SIMULINK, do MATLAB. Além disso, como forma de conferir os resultados,
 serão feitos os gráficos das respostas dos exercícios como descrito na \href{https://www.ece.ufrgs.br/~fetter/eng10001/listas/circuitos_2a_ordem.pdf}{própria lista} para garantir que pelo menos uma das grandezas está correta. Esses gráficos das respostas
-serão feitos através da calculadora gráfica \href{https://www.desmos.com/calculator}{Desmos}.
+serão feitos através do próprio MATLAB para tornar mais fácil a comparação dos resultados.
 
 \subsection{Simulação do Exercício 8.33}
 Primeiramente, será feito o gráfico da resposta expressa pelo próprio exercício:
 $$ V_C(t) = \left(20 + 0,\!205e^{-4,95t} - 10,\!205e^{-0,05t}\right)\text{V}, t > 0 $$
 
-No Desmos, essa função gera o seguinte gráfico:
+Baseado na equação \ref{eq:8.33_sol}, código para gerar todos os gráficos de saídas deste exercício é o seguinte:
+\lstinputlisting[caption=Exercício 8.33,
+                captionpos=b,
+                basicstyle=\footnotesize,
+                numbers=left,
+                columns=flexible,
+                xleftmargin=26pt,
+                frame=single,
+                framexleftmargin=22pt,
+                aboveskip=15pt,
+                breaklines=true,
+                language=Matlab]
+                {code/ex_8_33.m}
 
+Com esse código, gerou-se os seguintes gráficos:
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_33_y1.pdf}
+    \caption{\label{plot:8.33_y1} Saída $ y_1 $ do Exercício 8.33}
+\end{figure}
+
+Nessa saída, observa-se que há uma ótima sobreposição de saída do Espaço de Estados e da função fornecida pelo gabarito da questão.
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_33_y2.pdf}
+    \caption{\label{plot:8.33_y2} Saída $ y_2 $ do Exercício 8.33}
+\end{figure}
+
+Na figura acima, observa-se que a corrente no indutor parte de $ -2\text{A} $ e chega até o regime permanente esperado de $ 0\text{A} $.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_33_y3.pdf}
+    \caption{\label{plot:8.33_y3} Saída $ y_3 $ do Exercício 8.33}
+\end{figure}
+
+Por fim, é observável que a figura acima representa bem o comportamento da tensão sobre o resistor. Partindo de $ 30\text{V} $ e chegando no regime
+permanente de $ 20 \text{V} $.
+
+\begin{center}
+    \[ \scalebox{3}{$ * $} \]
+\end{center}
 
 \subsection{Simulação do Exercício 8.38.1}
 Começando novamente pela representação gráfica da resposta do próprio exercício:
 $$ I_L(t) = \left\{8 + e^{-400t}\left[2\cos(300t) + 11\sin(300t)\right]\right\}\text{A}, t > 0 $$
 
-O gráfico gerado com essa função no Desmos foi:
+Agora, partindo da expressão \ref{eq:8.38.1_sol}, o código para comparar as respostas e expressar as outras saídas é o seguinte:
+\lstinputlisting[caption=Exercício 8.38.1,
+                captionpos=b,
+                basicstyle=\footnotesize,
+                numbers=left,
+                columns=flexible,
+                xleftmargin=26pt,
+                frame=single,
+                framexleftmargin=22pt,
+                aboveskip=15pt,
+                breaklines=true,
+                language=Matlab]
+                {code/ex_8_38_1.m}
+
+A partir daí, foram construídos os seguintes gráficos:
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_38_1_y1.pdf}
+    \caption{\label{plot:8.38.1_y1} Saída $ y_1 $ do Exercício 8.38.1}
+\end{figure}
+
+Aqui, na tensão do capacitor, é observável que ela começa nos $ 40\text{V} $, tem comportamento senoidal amortecido e
+acaba na mesma tensão do indutor carregado, $ 0\text{V} $.
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_38_1_y2.pdf}
+    \caption{\label{plot:8.38.1_y2} Saída $ y_2 $ do Exercício 8.38.1}
+\end{figure}
+
+Nessa figura, é visível que há uma ótima sobreposição entre os resultados da função do gabarito com a resposta em Representação de Espaço de Estados, confirmando
+que a corrente começa em $ 10\text{A} $ e acaba em $ 8\text{A} $, com comportamento senoidal amortecido.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_38_1_y3.pdf}
+    \caption{\label{plot:8.38.1_y3} Saída $ y_3 $ do Exercício 8.38.1}
+\end{figure}
+
+Por fim, é observável que a figura acima representa bem o comportamento da tensão sobre o resistor. Partindo de $ 40\text{V} $ e chegando no regime
+permanente de $ 80 \text{V} $. No intervalo central, se comportando com o mesmo tipo de oscilação que as outras grandezas acima.
 
 \subsection{Simulação do Exercício 8.38.2}
 A resposta dada pelo exercício é:
 $$ I_L(t) = \left(e^{-4,431t} + e^{-0,903t}\right)\text{A}, t > 0 $$
 
-Isso gera o seguinte resultado na calculadora gráfica:
+O programa utilizado para gerar os resultados gráficos, contando com \ref{eq:8.38.2_sol}, está a seguir:
 
 \subsection{Simulação do Exercício 8.39}
 Por fim, o exercício fornece o seguinte comportamento esperado para uma de suas grandezas:
 $$ V_C(t) = \left(-6 -0,\!02e^{-47,83t} + 6,\!02e^{-0,17t}\right)\text{V}, t > 0 $$
 
-Gera-se o seguinte gráfico no Desmos com essa resposta:
+A seguir, baseado em \ref{eq:8.39_sol}, segue o código para gerar os gráficos das respostas:
 
 \section{Conclusões Finais}
 
