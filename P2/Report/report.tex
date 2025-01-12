@@ -987,4 +987,17 @@ ou devido ao capacitor (no fim).
 
 \section{Considerações Finais}
 
+Este trabalho mostrou que, mesmo em circuitos onde é possível deduzir as equações diferenciais e analisar o comportamento das suas grandezas
+com equações diferenciais de alguma ordem, é possível deduzir as mesmas conclusões através da Representação em Espaço de Estados. Ademais, em circuitos
+de ordem muito elevada, a resolução das equações diferenciais puras pode se tornar inviável, exigindo a dedução da derivada de uma grandeza em $ t_0 $ de até
+uma ordem a menos que a ordem do circuito. Desde que se descubra a condição inicial de cada variável de estado, é possível resolver qualquer sistema dessa maneira.
+
+Além disso, fazendo o mapeamento para um sistema de equações diferenciais ordinárias de primeira ordem, é bem mais fácil de resolver qualquer grandeza no circuito
+através da aplicação de uma Transformada de Laplace, onde o sistema de EDOs de primeira ordem passa a ser traduzido para um sistema linear comum. Resolvendo-o e tomando as
+transformadas inversas das funções resultantes, obtém-se a resposta temporal do sistema.
+
+Para finalizar, essa forma de representar circuitos remete à ideia que todos os componentes passivos, excluindo as fontes dependentes, são impedâncias. Pois, ao tratá-las nesse sistema,
+especialmente no espaço de frequências, o indutor se comporta como um atraso na corrente, uma rotação positiva da tensão no espaço complexo e o capacitor atrasa a tensão e a rotaciona negativamente
+no espaço complexo. Já o resistor, pela Lei de Ohm, apresenta tensão sincronizada com a sua corrente. Toda essa teoria é unificada e simplificada através do uso de fasores.
+
 \end{document}
