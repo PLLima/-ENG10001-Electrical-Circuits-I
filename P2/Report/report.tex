@@ -775,13 +775,14 @@ Portanto, unindo as afirmações \ref{eq:8.39_y1} à \ref{eq:8.39_x2_0}, obtem-s
 \section{Simulações dos Resultados}
 Como dito pelo enunciado, agora precisa-se simular os resultados gerados pelas matrizes dos exercícios no SIMULINK, do MATLAB. Além disso, como forma de conferir os resultados,
 serão feitos os gráficos das respostas dos exercícios como descrito na \href{https://www.ece.ufrgs.br/~fetter/eng10001/listas/circuitos_2a_ordem.pdf}{própria lista} para garantir que pelo menos uma das grandezas está correta. Esses gráficos das respostas
-serão feitos através do próprio MATLAB para tornar mais fácil a comparação dos resultados.
+serão feitos através do próprio MATLAB para tornar mais fácil a comparação dos resultados. Pode-se ampliar as imagens o quanto for desejado, visto que elas foram geradas a partir de arquivos PDF. Também vale notar que os gráficos do SIMULINK são gerados
+incluindo apenas o intervalo de valores que é igual à imagem da função das grandezas (para facilitar a leitura de alguns gráficos).
 
 \subsection{Simulação do Exercício 8.33}
 Primeiramente, será feito o gráfico da resposta expressa pelo próprio exercício:
 $$ V_C(t) = \left(20 + 0,\!205e^{-4,95t} - 10,\!205e^{-0,05t}\right)\text{V}, t > 0 $$
 
-Baseado na equação \ref{eq:8.33_sol}, código para gerar todos os gráficos de saídas deste exercício é o seguinte:
+Baseado na equação \ref{eq:8.33_sol}, o código para gerar todos os gráficos de saídas deste exercício é o seguinte:
 \lstinputlisting[caption=Exercício 8.33,
                 captionpos=b,
                 basicstyle=\footnotesize,
@@ -803,6 +804,8 @@ Com esse código, gerou-se os seguintes gráficos:
 \end{figure}
 
 Nessa saída, observa-se que há uma ótima sobreposição de saída do Espaço de Estados e da função fornecida pelo gabarito da questão.
+A tensão no capacitor parte de $ 10\text{V} $ e estabiliza em $ 20\text{V} $, como era esperado.
+
 \clearpage
 \begin{figure}[h!]
     \centering
@@ -810,7 +813,8 @@ Nessa saída, observa-se que há uma ótima sobreposição de saída do Espaço 
     \caption{\label{plot:8.33_y2} Saída $ y_2 $ do Exercício 8.33}
 \end{figure}
 
-Na figura acima, observa-se que a corrente no indutor parte de $ -2\text{A} $ e chega até o regime permanente esperado de $ 0\text{A} $.
+Na figura acima, observa-se que a corrente no indutor parte de $ -2\text{A} $ e chega até o regime permanente esperado de $ 0\text{A} $. Isso
+porque não há caminho para a corrente do indutor passar após o capacitor ficar carregado.
 
 \begin{figure}[h!]
     \centering
@@ -819,7 +823,7 @@ Na figura acima, observa-se que a corrente no indutor parte de $ -2\text{A} $ e 
 \end{figure}
 
 Por fim, é observável que a figura acima representa bem o comportamento da tensão sobre o resistor. Partindo de $ 30\text{V} $ e chegando no regime
-permanente de $ 20 \text{V} $.
+permanente de $ 20 \text{V} $. Esse regime permanente advém da própria corrente de entrada que percorre apenas esse resistor ao estabilizar.
 
 \begin{center}
     \[ \scalebox{3}{$ * $} \]
@@ -900,7 +904,7 @@ Com esse programa, obteve-se os seguintes gráficos:
     \caption{\label{plot:8.38.2_y1} Saída $ y_1 $ do Exercício 8.38.2}
 \end{figure}
 
-Aqui, é observável um comportamento de decrescimento exponencial, partindo do valor inicial de tensão
+Aqui, é observado um comportamento de decrescimento exponencial, partindo do valor inicial de tensão
 sobre o capacitor, $ 4\text{V} $, até atingir o valor de descarregado por não haver fontes.
 
 \clearpage
@@ -911,6 +915,8 @@ sobre o capacitor, $ 4\text{V} $, até atingir o valor de descarregado por não 
 \end{figure}
 
 No gráfico, há novamente a superposição de corrente no indutor esperada e obtida neste trabalho.
+A corrente da fonte passa, inicialmente, toda pelo indutor e, sem ela, o sistema deixa de ter energia no
+fim dos tempos.
 
 \begin{figure}[h!]
     \centering
@@ -930,9 +936,51 @@ Por fim, o exercício fornece o seguinte comportamento esperado para uma de suas
 $$ V_C(t) = \left(-6 -0,\!02e^{-47,83t} + 6,\!02e^{-0,17t}\right)\text{V}, t > 0 $$
 
 A seguir, baseado em \ref{eq:8.39_sol}, segue o código para gerar os gráficos das respostas:
+\lstinputlisting[caption=Exercício 8.39,
+                captionpos=b,
+                basicstyle=\footnotesize,
+                numbers=left,
+                columns=flexible,
+                xleftmargin=26pt,
+                frame=single,
+                framexleftmargin=22pt,
+                aboveskip=15pt,
+                breaklines=true,
+                language=Matlab]
+                {code/ex_8_39.m}
 
+Esse gerou as seguintes figuras:
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_39_y1.pdf}
+    \caption{\label{plot:8.39_y1} Saída $ y_1 $ do Exercício 8.39}
+\end{figure}
 
+Essa imagem apresenta bastante superposição da resposta do gabarito em comparação com a resposta obtida
+por este trabalho. Há apenas leves desvios devido a erros de truncamento. De fato, o valor inicial do capacitor
+é de $ 0\text{V} $ e ele termina com $ -6\text{V} $ de carga por conta da malha da direita do circuito \ref{ckt:4}.
 
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_39_y2.pdf}
+    \caption{\label{plot:8.39_y2} Saída $ y_2 $ do Exercício 8.39}
+\end{figure}
+
+Com \textit{zoom}, é observável que a corrente no indutor começa em $ 0\text{A} $ e termina no mesmo ponto, com comportamento
+exponencial. No início, ele está descarregado e, no final, o capacitor ``corta" a corrente do ramo onde o
+indutor também está presente.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_39_y3.pdf}
+    \caption{\label{plot:8.39_y3} Saída $ y_3 $ do Exercício 8.39}
+\end{figure}
+
+Por fim, o comportamento da tensão no resistor também se comporta como deveria: partindo de $ 36\text{V} $, estabilizando
+na mesma tensão em regime permanente. Isso se dá porque todo o lado direito do circuito \ref{ckt:4} passa a não ter corrente devido ao indutor (no início)
+ou devido ao capacitor (no fim).
+\vspace*{-\baselineskip}
 \begin{center}
     \[ \scalebox{3}{$ * $} \]
 \end{center}
