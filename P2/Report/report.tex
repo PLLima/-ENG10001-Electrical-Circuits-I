@@ -871,11 +871,59 @@ que a corrente começa em $ 10\text{A} $ e acaba em $ 8\text{A} $, com comportam
 Por fim, é observável que a figura acima representa bem o comportamento da tensão sobre o resistor. Partindo de $ 40\text{V} $ e chegando no regime
 permanente de $ 80 \text{V} $. No intervalo central, se comportando com o mesmo tipo de oscilação que as outras grandezas acima.
 
+\begin{center}
+    \[ \scalebox{3}{$ * $} \]
+\end{center}
+
 \subsection{Simulação do Exercício 8.38.2}
 A resposta dada pelo exercício é:
 $$ I_L(t) = \left(e^{-4,431t} + e^{-0,903t}\right)\text{A}, t > 0 $$
 
 O programa utilizado para gerar os resultados gráficos, contando com \ref{eq:8.38.2_sol}, está a seguir:
+\lstinputlisting[caption=Exercício 8.38.2,
+                captionpos=b,
+                basicstyle=\footnotesize,
+                numbers=left,
+                columns=flexible,
+                xleftmargin=26pt,
+                frame=single,
+                framexleftmargin=22pt,
+                aboveskip=15pt,
+                breaklines=true,
+                language=Matlab]
+                {code/ex_8_38_2.m}
+
+Com esse programa, obteve-se os seguintes gráficos:
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_38_2_y1.pdf}
+    \caption{\label{plot:8.38.2_y1} Saída $ y_1 $ do Exercício 8.38.2}
+\end{figure}
+
+Aqui, é observável um comportamento de decrescimento exponencial, partindo do valor inicial de tensão
+sobre o capacitor, $ 4\text{V} $, até atingir o valor de descarregado por não haver fontes.
+
+\clearpage
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_38_2_y2.pdf}
+    \caption{\label{plot:8.38.2_y2} Saída $ y_2 $ do Exercício 8.38.2}
+\end{figure}
+
+No gráfico, há novamente a superposição de corrente no indutor esperada e obtida neste trabalho.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.85\textwidth]{images/plots/plot_8_38_2_y3.pdf}
+    \caption{\label{plot:8.38.2_y3} Saída $ y_3 $ do Exercício 8.38.2}
+\end{figure}
+
+Também, nessa imagem, há um comportamento esperado de decrescimento exponencial no resistor, partindo do valor inicial de $ 8\text{V} $
+que ocorre pelas cargas no indutor e capacitor e decrescendo até não haver mais energia no sistema.
+
+\begin{center}
+    \[ \scalebox{3}{$ * $} \]
+\end{center}
 
 \subsection{Simulação do Exercício 8.39}
 Por fim, o exercício fornece o seguinte comportamento esperado para uma de suas grandezas:
@@ -883,6 +931,12 @@ $$ V_C(t) = \left(-6 -0,\!02e^{-47,83t} + 6,\!02e^{-0,17t}\right)\text{V}, t > 0
 
 A seguir, baseado em \ref{eq:8.39_sol}, segue o código para gerar os gráficos das respostas:
 
-\section{Conclusões Finais}
+
+
+\begin{center}
+    \[ \scalebox{3}{$ * $} \]
+\end{center}
+
+\section{Considerações Finais}
 
 \end{document}
