@@ -1,0 +1,33 @@
+\documentclass[landscape]{article}
+
+\usepackage[main=portuguese, english]{babel}
+\usepackage{graphicx}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{output-decimal-marker={,}}
+
+\begin{document}
+    \pagestyle{empty}
+    \begin{figure}[h!]
+      \centering
+      \begin{circuitikz}[scale=0.8]
+          \draw (0,3) to[american voltage source, l_=$ 60u(t)\text{V} $] (0,0);
+          \draw (0,3) to[R, l=30<\ohm>] (3,3);
+          \draw (2.5,2.8) node[below]{$ - $}
+                (1.5,2.8) node[below]{$ \text{V}_\text{R} $}
+                (0.5,2.8) node[below]{$ + $};
+          \draw (0,0) -- (9,0);
+          \draw (3,0) to[R, l=20<\ohm>, *-*] (3,3);
+          \draw (3,3) to[C, l=$\num{0,5}\text{F}$] (6,3);
+          \draw (5.2,2.5) node[below]{$ - $}
+                (4.5,2.5) node[below]{$ \text{V}_\text{C} $}
+                (3.8,2.5) node[below]{$ + $};
+          \draw (6,3) to[L, l=$\num{0,25}\text{H}$] (9,3);
+          \draw [->, shorten >=1mm, shorten <=1mm] (7,2.6) -- (8,2.6) node[midway, below] {$ \text{I}_\text{L} $};
+          \draw (9,3) to[american voltage source, l=$ 30u(t)\text{V} $] (9,0);
+      \end{circuitikz}
+      \end{figure}
+
+\end{document}
+
+pdfcrop --margins '0 0 0 0' base.pdf base.pdf

@@ -1,0 +1,30 @@
+\documentclass[landscape]{article}
+
+\usepackage[main=portuguese, english]{babel}
+\usepackage{graphicx}
+
+\usepackage[siunitx]{circuitikz}
+\sisetup{output-decimal-marker={,}}
+
+\begin{document}
+    \pagestyle{empty}
+    \begin{figure}[h!]
+        \centering
+        \begin{circuitikz}[scale=0.8]
+            \draw (0,0) to[american current source, l=3<\ampere>] (0,3);
+            \draw (0,3) -- (6,3)
+                  (0,0) -- (9,0);
+            \draw (3,0) to[R, l=10<\ohm>, *-*] (3,3);
+            \draw (6,0) to[C, l=4<\farad>, *-*] (6,3);
+            \draw (6.5,0.75) node[right]{$ - $}
+                  (6.5,1.5) node[right]{$ \text{V}_\text{C}(0^-) $}
+                  (6.5,2.25) node[right]{$ + $};
+            \draw (6,3) to[L, l=1<\henry>] (9,3);
+            \draw [->, shorten >=1mm, shorten <=1mm] (8.5,2.6) -- (7.5,2.6) node[midway, below] {$ \text{I}_\text{L}(0^-) $};
+            \draw (9,0) to[R, l_=5<\ohm>] (9,3);
+        \end{circuitikz}
+   \end{figure}
+
+\end{document}
+
+pdfcrop --margins '0 0 0 0' base.pdf base.pdf
